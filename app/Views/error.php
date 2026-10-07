@@ -1,0 +1,1 @@
+<section class="auth-form-wrap"><span class="eyebrow">BLUJAY INTERVIEW OPERATIONS</span><h2><?= $e($title) ?></h2><p class="intro"><?= $e($message) ?></p><a class="button primary" href="<?= $e($url()) ?>">Return to workspace</a></section>

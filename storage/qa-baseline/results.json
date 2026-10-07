@@ -1,0 +1,878 @@
+{
+  "mode": "baseline",
+  "pages": 175,
+  "layout_checks": 525,
+  "screenshots": [
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-baseline\\login-390.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-baseline\\register-390.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-baseline\\login-1440.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-baseline\\register-1440.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-baseline\\candidate-dashboard-390.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-baseline\\candidate-interviews-390.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-baseline\\candidate-interview-detail-390.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-baseline\\candidate-book-390.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-baseline\\candidate-profile-390.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-baseline\\candidate-dashboard-1440.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-baseline\\candidate-interviews-1440.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-baseline\\candidate-interview-detail-1440.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-baseline\\candidate-book-1440.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-baseline\\candidate-profile-1440.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-baseline\\candidate-resume-profile-390.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-baseline\\candidate-resume-profile-1440.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-baseline\\admin-dashboard-390.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-baseline\\admin-calendar-day-390.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-baseline\\admin-calendar-week-390.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-baseline\\admin-interviews-390.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-baseline\\admin-interview-detail-390.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-baseline\\admin-create-interview-390.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-baseline\\admin-reschedule-390.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-baseline\\admin-candidates-390.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-baseline\\admin-candidate-detail-390.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-baseline\\admin-candidate-resume-390.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-baseline\\admin-resources-390.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-baseline\\admin-support-390.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-baseline\\admin-technologies-390.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-baseline\\admin-reports-390.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-baseline\\admin-audit-390.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-baseline\\admin-audit-detail-390.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-baseline\\admin-settings-390.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-baseline\\admin-dashboard-1440.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-baseline\\admin-calendar-day-1440.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-baseline\\admin-calendar-week-1440.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-baseline\\admin-interviews-1440.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-baseline\\admin-interview-detail-1440.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-baseline\\admin-create-interview-1440.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-baseline\\admin-reschedule-1440.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-baseline\\admin-candidates-1440.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-baseline\\admin-candidate-detail-1440.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-baseline\\admin-candidate-resume-1440.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-baseline\\admin-resources-1440.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-baseline\\admin-support-1440.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-baseline\\admin-technologies-1440.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-baseline\\admin-reports-1440.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-baseline\\admin-audit-1440.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-baseline\\admin-audit-detail-1440.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-baseline\\admin-settings-1440.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-baseline\\admin-navigation-390.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-baseline\\candidate-delete-dialog-390.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-baseline\\calendar-drawer-390.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-baseline\\candidate-book-step-1-390.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-baseline\\candidate-book-step-2-390.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-baseline\\candidate-book-step-3-390.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-baseline\\candidate-book-step-4-390.png"
+  ],
+  "small_targets": {
+    "login@360": [
+      {
+        "tag": "BUTTON",
+        "text": "Show",
+        "w": 45,
+        "h": 37
+      }
+    ],
+    "register@360": [
+      {
+        "tag": "BUTTON",
+        "text": "Show",
+        "w": 45,
+        "h": 37
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 292,
+        "h": 30
+      },
+      {
+        "tag": "INPUT",
+        "text": "Genuine",
+        "w": 16,
+        "h": 16
+      },
+      {
+        "tag": "INPUT",
+        "text": "Fake",
+        "w": 16,
+        "h": 16
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 20,
+        "h": 45
+      }
+    ],
+    "login@375": [
+      {
+        "tag": "BUTTON",
+        "text": "Show",
+        "w": 45,
+        "h": 37
+      }
+    ],
+    "register@375": [
+      {
+        "tag": "BUTTON",
+        "text": "Show",
+        "w": 45,
+        "h": 37
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 307,
+        "h": 30
+      },
+      {
+        "tag": "INPUT",
+        "text": "Genuine",
+        "w": 16,
+        "h": 16
+      },
+      {
+        "tag": "INPUT",
+        "text": "Fake",
+        "w": 16,
+        "h": 16
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 20,
+        "h": 45
+      }
+    ],
+    "login@390": [
+      {
+        "tag": "BUTTON",
+        "text": "Show",
+        "w": 45,
+        "h": 37
+      }
+    ],
+    "register@390": [
+      {
+        "tag": "BUTTON",
+        "text": "Show",
+        "w": 45,
+        "h": 37
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 322,
+        "h": 30
+      },
+      {
+        "tag": "INPUT",
+        "text": "Genuine",
+        "w": 16,
+        "h": 16
+      },
+      {
+        "tag": "INPUT",
+        "text": "Fake",
+        "w": 16,
+        "h": 16
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 20,
+        "h": 45
+      }
+    ],
+    "login@412": [
+      {
+        "tag": "BUTTON",
+        "text": "Show",
+        "w": 45,
+        "h": 37
+      }
+    ],
+    "register@412": [
+      {
+        "tag": "BUTTON",
+        "text": "Show",
+        "w": 45,
+        "h": 37
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 344,
+        "h": 30
+      },
+      {
+        "tag": "INPUT",
+        "text": "Genuine",
+        "w": 16,
+        "h": 16
+      },
+      {
+        "tag": "INPUT",
+        "text": "Fake",
+        "w": 16,
+        "h": 16
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 20,
+        "h": 45
+      }
+    ],
+    "login@430": [
+      {
+        "tag": "BUTTON",
+        "text": "Show",
+        "w": 45,
+        "h": 37
+      }
+    ],
+    "register@430": [
+      {
+        "tag": "BUTTON",
+        "text": "Show",
+        "w": 45,
+        "h": 37
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 362,
+        "h": 30
+      },
+      {
+        "tag": "INPUT",
+        "text": "Genuine",
+        "w": 16,
+        "h": 16
+      },
+      {
+        "tag": "INPUT",
+        "text": "Fake",
+        "w": 16,
+        "h": 16
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 20,
+        "h": 45
+      }
+    ],
+    "candidate-interviews@360": [
+      {
+        "tag": "A",
+        "text": "Details",
+        "w": 286,
+        "h": 40
+      },
+      {
+        "tag": "A",
+        "text": "Details",
+        "w": 286,
+        "h": 40
+      },
+      {
+        "tag": "A",
+        "text": "Details",
+        "w": 221,
+        "h": 40
+      }
+    ],
+    "candidate-book@360": [
+      {
+        "tag": "INPUT",
+        "text": "available",
+        "w": 14,
+        "h": 16
+      },
+      {
+        "tag": "INPUT",
+        "text": "unavailable",
+        "w": 16,
+        "h": 16
+      }
+    ],
+    "candidate-profile@360": [
+      {
+        "tag": "BUTTON",
+        "text": "\u00d7",
+        "w": 12,
+        "h": 12
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 260,
+        "h": 30
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 20,
+        "h": 45
+      }
+    ],
+    "candidate-interviews@375": [
+      {
+        "tag": "A",
+        "text": "Details",
+        "w": 301,
+        "h": 40
+      },
+      {
+        "tag": "A",
+        "text": "Details",
+        "w": 301,
+        "h": 40
+      },
+      {
+        "tag": "A",
+        "text": "Details",
+        "w": 236,
+        "h": 40
+      }
+    ],
+    "candidate-book@375": [
+      {
+        "tag": "INPUT",
+        "text": "available",
+        "w": 15,
+        "h": 16
+      },
+      {
+        "tag": "INPUT",
+        "text": "unavailable",
+        "w": 16,
+        "h": 16
+      }
+    ],
+    "candidate-profile@375": [
+      {
+        "tag": "BUTTON",
+        "text": "\u00d7",
+        "w": 12,
+        "h": 12
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 275,
+        "h": 30
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 20,
+        "h": 45
+      }
+    ],
+    "candidate-interviews@390": [
+      {
+        "tag": "A",
+        "text": "Details",
+        "w": 316,
+        "h": 40
+      },
+      {
+        "tag": "A",
+        "text": "Details",
+        "w": 316,
+        "h": 40
+      },
+      {
+        "tag": "A",
+        "text": "Details",
+        "w": 251,
+        "h": 40
+      }
+    ],
+    "candidate-book@390": [
+      {
+        "tag": "INPUT",
+        "text": "available",
+        "w": 16,
+        "h": 16
+      },
+      {
+        "tag": "INPUT",
+        "text": "unavailable",
+        "w": 16,
+        "h": 16
+      }
+    ],
+    "candidate-profile@390": [
+      {
+        "tag": "BUTTON",
+        "text": "\u00d7",
+        "w": 12,
+        "h": 12
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 290,
+        "h": 30
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 20,
+        "h": 45
+      }
+    ],
+    "candidate-interviews@412": [
+      {
+        "tag": "A",
+        "text": "Details",
+        "w": 338,
+        "h": 40
+      },
+      {
+        "tag": "A",
+        "text": "Details",
+        "w": 338,
+        "h": 40
+      },
+      {
+        "tag": "A",
+        "text": "Details",
+        "w": 273,
+        "h": 40
+      }
+    ],
+    "candidate-book@412": [
+      {
+        "tag": "INPUT",
+        "text": "available",
+        "w": 16,
+        "h": 16
+      },
+      {
+        "tag": "INPUT",
+        "text": "unavailable",
+        "w": 16,
+        "h": 16
+      }
+    ],
+    "candidate-profile@412": [
+      {
+        "tag": "BUTTON",
+        "text": "\u00d7",
+        "w": 12,
+        "h": 12
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 312,
+        "h": 30
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 20,
+        "h": 45
+      }
+    ],
+    "candidate-interviews@430": [
+      {
+        "tag": "A",
+        "text": "Details",
+        "w": 356,
+        "h": 40
+      },
+      {
+        "tag": "A",
+        "text": "Details",
+        "w": 356,
+        "h": 40
+      },
+      {
+        "tag": "A",
+        "text": "Details",
+        "w": 291,
+        "h": 40
+      }
+    ],
+    "candidate-book@430": [
+      {
+        "tag": "INPUT",
+        "text": "available",
+        "w": 16,
+        "h": 16
+      },
+      {
+        "tag": "INPUT",
+        "text": "unavailable",
+        "w": 16,
+        "h": 16
+      }
+    ],
+    "candidate-profile@430": [
+      {
+        "tag": "BUTTON",
+        "text": "\u00d7",
+        "w": 12,
+        "h": 12
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 330,
+        "h": 30
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 20,
+        "h": 45
+      }
+    ],
+    "candidate-resume-profile@360": [
+      {
+        "tag": "BUTTON",
+        "text": "\u00d7",
+        "w": 12,
+        "h": 12
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 260,
+        "h": 30
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 20,
+        "h": 45
+      }
+    ],
+    "candidate-resume-profile@375": [
+      {
+        "tag": "BUTTON",
+        "text": "\u00d7",
+        "w": 12,
+        "h": 12
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 275,
+        "h": 30
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 20,
+        "h": 45
+      }
+    ],
+    "candidate-resume-profile@390": [
+      {
+        "tag": "BUTTON",
+        "text": "\u00d7",
+        "w": 12,
+        "h": 12
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 290,
+        "h": 30
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 20,
+        "h": 45
+      }
+    ],
+    "candidate-resume-profile@412": [
+      {
+        "tag": "BUTTON",
+        "text": "\u00d7",
+        "w": 12,
+        "h": 12
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 312,
+        "h": 30
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 20,
+        "h": 45
+      }
+    ],
+    "candidate-resume-profile@430": [
+      {
+        "tag": "BUTTON",
+        "text": "\u00d7",
+        "w": 12,
+        "h": 12
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 330,
+        "h": 30
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 20,
+        "h": 45
+      }
+    ],
+    "admin-settings@360": [
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      },
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      },
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      },
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      },
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      },
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      },
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      }
+    ],
+    "admin-settings@375": [
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      },
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      },
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      },
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      },
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      },
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      },
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      }
+    ],
+    "admin-settings@390": [
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      },
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      },
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      },
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      },
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      },
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      },
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      }
+    ],
+    "admin-settings@412": [
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      },
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      },
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      },
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      },
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      },
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      },
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      }
+    ],
+    "admin-settings@430": [
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      },
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      },
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      },
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      },
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      },
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      },
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      }
+    ]
+  },
+  "failures": [
+    "admin-interviews@360: offscreen controls [{'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}]",
+    "admin-reports@360: offscreen controls [{'tag': 'A', 'text': 'This Month', 'left': 314, 'right': 390}, {'tag': 'A', 'text': 'Last 30 Days', 'left': 397, 'right': 478}, {'tag': 'A', 'text': 'Custom Range', 'left': 485, 'right': 575}]",
+    "admin-audit@360: overflow 822>360",
+    "admin-audit@360: offscreen controls [{'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}]",
+    "admin-interviews@375: offscreen controls [{'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}]",
+    "admin-reports@375: offscreen controls [{'tag': 'A', 'text': 'This Month', 'left': 314, 'right': 390}, {'tag': 'A', 'text': 'Last 30 Days', 'left': 397, 'right': 478}, {'tag': 'A', 'text': 'Custom Range', 'left': 485, 'right': 575}]",
+    "admin-audit@375: overflow 822>375",
+    "admin-audit@375: offscreen controls [{'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}]",
+    "admin-interviews@390: offscreen controls [{'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}]",
+    "admin-reports@390: offscreen controls [{'tag': 'A', 'text': 'Last 30 Days', 'left': 397, 'right': 478}, {'tag': 'A', 'text': 'Custom Range', 'left': 485, 'right': 575}]",
+    "admin-audit@390: overflow 822>390",
+    "admin-audit@390: offscreen controls [{'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}]",
+    "admin-interviews@412: offscreen controls [{'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}]",
+    "admin-reports@412: offscreen controls [{'tag': 'A', 'text': 'Last 30 Days', 'left': 397, 'right': 478}, {'tag': 'A', 'text': 'Custom Range', 'left': 485, 'right': 575}]",
+    "admin-audit@412: overflow 822>412",
+    "admin-audit@412: offscreen controls [{'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}]",
+    "admin-interviews@430: offscreen controls [{'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}, {'tag': 'A', 'text': 'Open booking', 'left': 846, 'right': 878}]",
+    "admin-reports@430: offscreen controls [{'tag': 'A', 'text': 'Last 30 Days', 'left': 397, 'right': 478}, {'tag': 'A', 'text': 'Custom Range', 'left': 485, 'right': 575}]",
+    "admin-audit@430: overflow 822>430",
+    "admin-audit@430: offscreen controls [{'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}, {'tag': 'A', 'text': 'Open audit event', 'left': 822, 'right': 854}]"
+  ]
+}

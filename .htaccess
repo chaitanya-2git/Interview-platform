@@ -1,0 +1,14 @@
+Options -Indexes
+DirectoryIndex disabled
+
+RewriteEngine On
+
+# Keep application code, configuration, and private data outside the web surface.
+RewriteRule ^(?:app|bin|config|database|docs|node_modules|resources|routes|storage|tests|vendor)(?:/|$) - [F,L,NC]
+RewriteRule ^(?:\.env|\.git|package(?:-lock)?\.json|README\.md)(?:/|$) - [F,L,NC]
+
+# Hostinger subdirectory deployment: expose public/ at /interviews without
+# placing application code inside that public directory.
+RewriteRule ^$ public/index.php [L]
+RewriteRule ^public(?:/|$) - [L]
+RewriteRule ^(.*)$ public/$1 [L]

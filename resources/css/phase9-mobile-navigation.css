@@ -1,0 +1,40 @@
+/* Mobile app chrome: the header, search and drawer work as one deliberate system. */
+.mobile-drawer-header{display:none}
+@media (max-width:760px){
+  :root{--mobile-appbar-h:58px;--mobile-search-h:48px;--mobile-bottom-h:72px;--mobile-pad:16px}
+  .mobile-drawer-header{display:none}
+  .admin-body .topbar{position:sticky;top:0;z-index:30;display:grid;grid-template-columns:44px minmax(0,1fr) 44px;grid-template-rows:var(--mobile-appbar-h) 64px;align-items:center;height:122px;padding:0 var(--mobile-pad);gap:0;background:#fff;border-bottom:1px solid #e3ebe7;box-shadow:0 5px 14px rgb(18 48 41 / 4%)}
+  .admin-body .topbar::before{content:"BluJay";display:block;grid-column:2;grid-row:1;margin:0;font-size:18px;font-weight:700;letter-spacing:-.7px;color:#153e39}
+  .admin-body .topbar .mobile-menu{grid-column:1;grid-row:1;justify-self:start;width:44px;height:44px;margin:0}
+  .admin-body .topbar .breadcrumb,.admin-body .topbar .topbar-date{display:none}
+  .admin-body .topbar .global-search{position:relative;grid-column:1/-1;grid-row:2;width:100%;min-width:0;margin:0;max-width:none}
+  .admin-body .topbar .global-search input{width:100%;height:var(--mobile-search-h);padding:0 38px 0 40px;border:1px solid #cedbd5;border-radius:12px;background:#f9fbfa;color:#203731;font-size:12px;box-shadow:none}
+  .admin-body .topbar .global-search input:focus{border-color:#5b947d;box-shadow:0 0 0 3px rgb(91 148 125 / 14%);background:#fff}
+  .admin-body .topbar .global-search::before{left:14px}
+  .admin-body .topbar .search-results{position:absolute;top:calc(100% + 8px);left:0;right:0;max-height:min(52dvh,440px);overflow-y:auto;overscroll-behavior:contain;z-index:80;border:1px solid #d7e3dd;border-radius:12px;background:#fff;box-shadow:0 18px 38px rgb(18 48 41 / 18%)}
+  .admin-body .main-content{padding-top:20px}
+  .candidate-body .topbar{position:sticky;top:0;z-index:30;height:var(--mobile-appbar-h);padding:0 var(--mobile-pad);background:#fff;box-shadow:0 3px 10px rgb(18 48 41 / 3%)}
+
+  body .sidebar{display:flex;position:fixed;inset:0 auto 0 0;width:min(86vw,336px);height:100dvh;padding:0;background:#fff;z-index:100;box-shadow:14px 0 42px rgb(10 35 28 / 24%);transform:translateX(-104%);visibility:hidden;pointer-events:none;transition:transform 180ms ease,visibility 180ms ease;overflow:hidden}
+  body .sidebar.is-open{display:flex;transform:translateX(0);visibility:visible;pointer-events:auto}
+  .sidebar>.brand{display:none}
+  .mobile-drawer-header{display:flex;flex:none;align-items:center;justify-content:space-between;min-height:72px;padding:13px 12px 12px 18px;border-bottom:1px solid #e5ece8}
+  .mobile-drawer-header div{min-width:0}.mobile-drawer-header strong,.mobile-drawer-header span{display:block}.mobile-drawer-header strong{font-size:14px;letter-spacing:-.15px;color:#173f37}.mobile-drawer-header span{margin-top:3px;color:#718078;font-size:10px}
+  .mobile-drawer-close{width:44px;height:44px;flex:none;color:#426257}
+  .sidebar .workspace-label{flex:none;margin:0;padding:13px 18px 11px;border:0;border-radius:0;background:transparent;color:#61776d;font-size:10px;letter-spacing:.1px}
+  .sidebar .workspace-label .status-dot{width:7px;height:7px;margin-right:7px}
+  .sidebar .nav-caption{flex:none;margin:0;padding:3px 18px 8px;color:#95a49d;font-size:8px;letter-spacing:1.25px}
+  .sidebar nav{display:flex;flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;flex-direction:column;gap:2px;padding:0 10px 10px;margin:0}
+  .sidebar .nav-item{display:flex;flex:none;align-items:center;min-height:49px;padding:0 10px;border-radius:10px;font-size:12px;line-height:1.2;color:#4e635a}
+  .sidebar .nav-item .icon{width:20px;height:20px;margin-right:12px;color:#759287}
+  .sidebar .nav-item.selected{background:#eaf4ee;color:#1c6955;font-weight:650;box-shadow:inset 0 0 0 1px #d9eae0}
+  .sidebar .nav-item.selected .icon{color:#25755f}.sidebar .nav-dot{width:5px;height:5px;margin-left:auto;background:#2b8a6c}
+  .sidebar .secondary-nav-item:first-of-type{margin-top:8px}
+  .sidebar .secondary-nav-item{color:#718078}.sidebar .secondary-nav-item[href$="/admin/audit"]{margin-top:8px;border-top:1px solid #e8eeeb;border-radius:0;padding-top:9px}
+  .sidebar .sidebar-bottom{flex:none;margin:0;padding:10px 10px max(10px,env(safe-area-inset-bottom));border-top:1px solid #e5ece8;background:#fcfdfc}
+  .sidebar .timezone{display:none}.sidebar .account-summary{margin:0 7px 7px;min-height:40px}.sidebar .account-summary strong{max-width:220px;font-size:11px}.sidebar .signout{min-height:42px;padding:8px 10px;font-size:11px}
+  .navigation-scrim{display:block;position:fixed;inset:0;z-index:90;border:0;background:rgb(12 31 26 / 58%);opacity:0;visibility:hidden;pointer-events:none;transition:opacity 180ms ease,visibility 180ms ease}
+  .sidebar.is-open + .navigation-scrim{opacity:1;visibility:visible;pointer-events:auto}
+  body.mobile-nav-open{overflow:hidden}.mobile-nav-open .mobile-bottom-nav{visibility:hidden;pointer-events:none}.mobile-nav-open .search-results{display:none}
+  .mobile-bottom-nav{z-index:20}.mobile-bottom-nav a,.admin-mobile-nav button{display:flex;align-items:center;justify-content:center;min-width:0;color:#73847c}.admin-mobile-nav button{border:0;background:transparent;flex:1;padding:4px 3px}.admin-mobile-nav button[aria-current=page]{color:var(--brand);font-weight:600;background:#edf5f0}
+}

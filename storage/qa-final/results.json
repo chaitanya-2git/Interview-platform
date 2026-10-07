@@ -1,0 +1,887 @@
+{
+  "mode": "final",
+  "pages": 175,
+  "layout_checks": 525,
+  "screenshots": [
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-final\\login-390.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-final\\register-390.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-final\\login-1440.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-final\\register-1440.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-final\\candidate-dashboard-390.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-final\\candidate-interviews-390.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-final\\candidate-interview-detail-390.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-final\\candidate-book-390.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-final\\candidate-profile-390.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-final\\candidate-dashboard-1440.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-final\\candidate-interviews-1440.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-final\\candidate-interview-detail-1440.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-final\\candidate-book-1440.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-final\\candidate-profile-1440.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-final\\candidate-resume-profile-390.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-final\\candidate-resume-profile-1440.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-final\\admin-dashboard-390.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-final\\admin-calendar-day-390.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-final\\admin-calendar-week-390.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-final\\admin-interviews-390.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-final\\admin-interview-detail-390.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-final\\admin-create-interview-390.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-final\\admin-reschedule-390.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-final\\admin-candidates-390.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-final\\admin-candidate-detail-390.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-final\\admin-candidate-resume-390.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-final\\admin-resources-390.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-final\\admin-support-390.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-final\\admin-technologies-390.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-final\\admin-reports-390.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-final\\admin-audit-390.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-final\\admin-audit-detail-390.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-final\\admin-settings-390.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-final\\admin-dashboard-1440.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-final\\admin-calendar-day-1440.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-final\\admin-calendar-week-1440.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-final\\admin-interviews-1440.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-final\\admin-interview-detail-1440.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-final\\admin-create-interview-1440.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-final\\admin-reschedule-1440.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-final\\admin-candidates-1440.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-final\\admin-candidate-detail-1440.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-final\\admin-candidate-resume-1440.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-final\\admin-resources-1440.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-final\\admin-support-1440.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-final\\admin-technologies-1440.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-final\\admin-reports-1440.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-final\\admin-audit-1440.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-final\\admin-audit-detail-1440.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-final\\admin-settings-1440.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-final\\admin-navigation-390.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-final\\candidate-delete-dialog-390.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-final\\calendar-drawer-390.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-final\\candidate-book-step-1-390.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-final\\candidate-book-step-2-390.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-final\\candidate-book-step-3-390.png",
+    "C:\\Users\\chait\\Desktop\\Interview Platform\\storage\\qa-final\\candidate-book-step-4-390.png"
+  ],
+  "small_targets": {
+    "login@360": [
+      {
+        "tag": "BUTTON",
+        "text": "Show",
+        "w": 45,
+        "h": 37
+      }
+    ],
+    "register@360": [
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 292,
+        "h": 30
+      },
+      {
+        "tag": "INPUT",
+        "text": "Genuine",
+        "w": 16,
+        "h": 16
+      },
+      {
+        "tag": "INPUT",
+        "text": "Fake",
+        "w": 16,
+        "h": 16
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 20,
+        "h": 45
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 20,
+        "h": 45
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Show",
+        "w": 45,
+        "h": 37
+      }
+    ],
+    "login@375": [
+      {
+        "tag": "BUTTON",
+        "text": "Show",
+        "w": 45,
+        "h": 37
+      }
+    ],
+    "register@375": [
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 307,
+        "h": 30
+      },
+      {
+        "tag": "INPUT",
+        "text": "Genuine",
+        "w": 16,
+        "h": 16
+      },
+      {
+        "tag": "INPUT",
+        "text": "Fake",
+        "w": 16,
+        "h": 16
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 20,
+        "h": 45
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 20,
+        "h": 45
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Show",
+        "w": 45,
+        "h": 37
+      }
+    ],
+    "login@390": [
+      {
+        "tag": "BUTTON",
+        "text": "Show",
+        "w": 45,
+        "h": 37
+      }
+    ],
+    "register@390": [
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 322,
+        "h": 30
+      },
+      {
+        "tag": "INPUT",
+        "text": "Genuine",
+        "w": 16,
+        "h": 16
+      },
+      {
+        "tag": "INPUT",
+        "text": "Fake",
+        "w": 16,
+        "h": 16
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 20,
+        "h": 45
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 20,
+        "h": 45
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Show",
+        "w": 45,
+        "h": 37
+      }
+    ],
+    "login@412": [
+      {
+        "tag": "BUTTON",
+        "text": "Show",
+        "w": 45,
+        "h": 37
+      }
+    ],
+    "register@412": [
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 344,
+        "h": 30
+      },
+      {
+        "tag": "INPUT",
+        "text": "Genuine",
+        "w": 16,
+        "h": 16
+      },
+      {
+        "tag": "INPUT",
+        "text": "Fake",
+        "w": 16,
+        "h": 16
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 20,
+        "h": 45
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 20,
+        "h": 45
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Show",
+        "w": 45,
+        "h": 37
+      }
+    ],
+    "login@430": [
+      {
+        "tag": "BUTTON",
+        "text": "Show",
+        "w": 45,
+        "h": 37
+      }
+    ],
+    "register@430": [
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 362,
+        "h": 30
+      },
+      {
+        "tag": "INPUT",
+        "text": "Genuine",
+        "w": 16,
+        "h": 16
+      },
+      {
+        "tag": "INPUT",
+        "text": "Fake",
+        "w": 16,
+        "h": 16
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 20,
+        "h": 45
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 20,
+        "h": 45
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Show",
+        "w": 45,
+        "h": 37
+      }
+    ],
+    "candidate-interviews@360": [
+      {
+        "tag": "A",
+        "text": "Details",
+        "w": 286,
+        "h": 40
+      },
+      {
+        "tag": "A",
+        "text": "Details",
+        "w": 286,
+        "h": 40
+      },
+      {
+        "tag": "A",
+        "text": "Details",
+        "w": 221,
+        "h": 40
+      }
+    ],
+    "candidate-book@360": [
+      {
+        "tag": "INPUT",
+        "text": "available",
+        "w": 14,
+        "h": 16
+      },
+      {
+        "tag": "INPUT",
+        "text": "unavailable",
+        "w": 16,
+        "h": 16
+      }
+    ],
+    "candidate-profile@360": [
+      {
+        "tag": "BUTTON",
+        "text": "\u00d7",
+        "w": 12,
+        "h": 12
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 266,
+        "h": 30
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 20,
+        "h": 45
+      }
+    ],
+    "candidate-interviews@375": [
+      {
+        "tag": "A",
+        "text": "Details",
+        "w": 301,
+        "h": 40
+      },
+      {
+        "tag": "A",
+        "text": "Details",
+        "w": 301,
+        "h": 40
+      },
+      {
+        "tag": "A",
+        "text": "Details",
+        "w": 236,
+        "h": 40
+      }
+    ],
+    "candidate-book@375": [
+      {
+        "tag": "INPUT",
+        "text": "available",
+        "w": 15,
+        "h": 16
+      },
+      {
+        "tag": "INPUT",
+        "text": "unavailable",
+        "w": 16,
+        "h": 16
+      }
+    ],
+    "candidate-profile@375": [
+      {
+        "tag": "BUTTON",
+        "text": "\u00d7",
+        "w": 12,
+        "h": 12
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 281,
+        "h": 30
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 20,
+        "h": 45
+      }
+    ],
+    "candidate-interviews@390": [
+      {
+        "tag": "A",
+        "text": "Details",
+        "w": 316,
+        "h": 40
+      },
+      {
+        "tag": "A",
+        "text": "Details",
+        "w": 316,
+        "h": 40
+      },
+      {
+        "tag": "A",
+        "text": "Details",
+        "w": 251,
+        "h": 40
+      }
+    ],
+    "candidate-book@390": [
+      {
+        "tag": "INPUT",
+        "text": "available",
+        "w": 16,
+        "h": 16
+      },
+      {
+        "tag": "INPUT",
+        "text": "unavailable",
+        "w": 16,
+        "h": 16
+      }
+    ],
+    "candidate-profile@390": [
+      {
+        "tag": "BUTTON",
+        "text": "\u00d7",
+        "w": 12,
+        "h": 12
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 296,
+        "h": 30
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 20,
+        "h": 45
+      }
+    ],
+    "candidate-interviews@412": [
+      {
+        "tag": "A",
+        "text": "Details",
+        "w": 338,
+        "h": 40
+      },
+      {
+        "tag": "A",
+        "text": "Details",
+        "w": 338,
+        "h": 40
+      },
+      {
+        "tag": "A",
+        "text": "Details",
+        "w": 273,
+        "h": 40
+      }
+    ],
+    "candidate-book@412": [
+      {
+        "tag": "INPUT",
+        "text": "available",
+        "w": 16,
+        "h": 16
+      },
+      {
+        "tag": "INPUT",
+        "text": "unavailable",
+        "w": 16,
+        "h": 16
+      }
+    ],
+    "candidate-profile@412": [
+      {
+        "tag": "BUTTON",
+        "text": "\u00d7",
+        "w": 12,
+        "h": 12
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 318,
+        "h": 30
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 20,
+        "h": 45
+      }
+    ],
+    "candidate-interviews@430": [
+      {
+        "tag": "A",
+        "text": "Details",
+        "w": 356,
+        "h": 40
+      },
+      {
+        "tag": "A",
+        "text": "Details",
+        "w": 356,
+        "h": 40
+      },
+      {
+        "tag": "A",
+        "text": "Details",
+        "w": 291,
+        "h": 40
+      }
+    ],
+    "candidate-book@430": [
+      {
+        "tag": "INPUT",
+        "text": "available",
+        "w": 16,
+        "h": 16
+      },
+      {
+        "tag": "INPUT",
+        "text": "unavailable",
+        "w": 16,
+        "h": 16
+      }
+    ],
+    "candidate-profile@430": [
+      {
+        "tag": "BUTTON",
+        "text": "\u00d7",
+        "w": 12,
+        "h": 12
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 336,
+        "h": 30
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 20,
+        "h": 45
+      }
+    ],
+    "candidate-resume-profile@360": [
+      {
+        "tag": "BUTTON",
+        "text": "\u00d7",
+        "w": 12,
+        "h": 12
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 266,
+        "h": 30
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 20,
+        "h": 45
+      }
+    ],
+    "candidate-resume-profile@375": [
+      {
+        "tag": "BUTTON",
+        "text": "\u00d7",
+        "w": 12,
+        "h": 12
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 281,
+        "h": 30
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 20,
+        "h": 45
+      }
+    ],
+    "candidate-resume-profile@390": [
+      {
+        "tag": "BUTTON",
+        "text": "\u00d7",
+        "w": 12,
+        "h": 12
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 296,
+        "h": 30
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 20,
+        "h": 45
+      }
+    ],
+    "candidate-resume-profile@412": [
+      {
+        "tag": "BUTTON",
+        "text": "\u00d7",
+        "w": 12,
+        "h": 12
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 318,
+        "h": 30
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 20,
+        "h": 45
+      }
+    ],
+    "candidate-resume-profile@430": [
+      {
+        "tag": "BUTTON",
+        "text": "\u00d7",
+        "w": 12,
+        "h": 12
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 336,
+        "h": 30
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "w": 20,
+        "h": 45
+      }
+    ],
+    "admin-settings@360": [
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      },
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      },
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      },
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      },
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      },
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      },
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      }
+    ],
+    "admin-settings@375": [
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      },
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      },
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      },
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      },
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      },
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      },
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      }
+    ],
+    "admin-settings@390": [
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      },
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      },
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      },
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      },
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      },
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      },
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      }
+    ],
+    "admin-settings@412": [
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      },
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      },
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      },
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      },
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      },
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      },
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      }
+    ],
+    "admin-settings@430": [
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      },
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      },
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      },
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      },
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      },
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      },
+      {
+        "tag": "INPUT",
+        "text": "1",
+        "w": 16,
+        "h": 38
+      }
+    ]
+  },
+  "failures": []
+}

@@ -1,0 +1,331 @@
+'use strict';
+document.querySelectorAll('[data-password]').forEach(button => {
+  button.addEventListener('click', () => {
+    const input = document.getElementById(button.dataset.password);
+    const show = input.type === 'password';
+    input.type = show ? 'text' : 'password';
+    button.textContent = show ? 'Hide' : 'Show';
+    button.setAttribute('aria-pressed', String(show));
+  });
+});
+document.querySelectorAll('[data-file-upload]').forEach(container => {
+  const input=container.querySelector('input[type="file"]');const name=container.querySelector('[data-file-name]');const status=container.querySelector('[data-file-status]');if(!input||!name||!status)return;
+  input.addEventListener('change',()=>{
+    const file=input.files?.[0];if(!file)return;
+    const maximum=Number(container.dataset.maxBytes||5*1024*1024);const withinLimit=file.size<=maximum;
+    const extension=(file.name.split('.').pop()||'File').toUpperCase();const size=file.size<1024*1024?`${Math.max(1,Math.round(file.size/1024))} KB`:`${(file.size/1024/1024).toFixed(1)} MB`;
+    name.textContent=file.name;status.textContent=withinLimit?`${extension} · ${size} · Ready to upload`:`File exceeds ${Math.round(maximum/1024/1024)} MB`;
+    container.classList.toggle('file-ready',withinLimit);
+    const preview=container.querySelector('[data-photo-preview]');
+    if(preview&&file.type.startsWith('image/')){const image=document.createElement('img');image.alt='Selected profile photo preview';const url=URL.createObjectURL(file);image.src=url;image.addEventListener('load',()=>URL.revokeObjectURL(url),{once:true});preview.replaceChildren(image);}
+  });
+});
+const menus = [...document.querySelectorAll('[data-menu]')];
+const menu = menus[0];
+const navigation = document.getElementById('navigation');
+const setNavigation = open => {
+  if (!navigation) return;
+  navigation.classList.toggle('is-open', open);
+  document.body.classList.toggle('mobile-nav-open', open);
+  menus.forEach(button => button.setAttribute('aria-expanded', String(open)));
+};
+menus.forEach(trigger => trigger.addEventListener('click', () => setNavigation(!navigation?.classList.contains('is-open'))));
+document.querySelectorAll('#navigation .nav-item').forEach(link => link.addEventListener('click', () => setNavigation(false)));
+document.addEventListener('keydown', event => {
+  if (event.key === 'Escape' && navigation?.classList.contains('is-open')) {
+    setNavigation(false); menu?.focus();
+  }
+});
+document.querySelectorAll('[data-dismiss]').forEach(button => button.addEventListener('click', () => button.closest('.toast').remove()));
+if (window.matchMedia('(max-width: 760px)').matches) {
+  document.querySelectorAll('form.report-filters,form.interview-filters').forEach(form => {
+    if (form.closest('.mobile-filter-sheet')) return;
+    const sheet = document.createElement('details');
+    sheet.className = 'mobile-filter-sheet';
+    const summary = document.createElement('summary');
+    summary.textContent = 'Filters';
+    const active = [...form.elements].filter(field => field.name && field.type !== 'hidden' && field.value).length;
+    if (active) { const count = document.createElement('span'); count.textContent = String(active); summary.append(count); }
+    form.before(sheet); sheet.append(summary, form);
+  });
+} else {
+  document.querySelectorAll('details.mobile-filter-sheet,details.mobile-technology-card').forEach(sheet => { sheet.open = true; });
+}
+document.querySelectorAll('form[method="post"]').forEach(form => form.addEventListener('submit', event => {
+  queueMicrotask(() => {
+    if (event.defaultPrevented) return;
+    const button = form.querySelector('[type="submit"]');
+    if (!button) return;
+    button.disabled = true;
+    button.setAttribute('aria-busy', 'true');
+  });
+}));
+const confirmation = document.getElementById('confirmation-dialog');
+document.querySelectorAll('[data-technology-form]').forEach(form => {
+  form.addEventListener('submit', event => {
+    const status = form.querySelector('[name="active"]');
+    if (status.value !== '0' || status.dataset.original === '0' || form.dataset.confirmed === 'true') return;
+    event.preventDefault();
+    document.getElementById('confirmation-message').textContent = 'This technology will no longer be available for new registrations. Existing candidate profiles will keep their technology.';
+    confirmation.returnValue = '';
+    confirmation.showModal();
+    confirmation.addEventListener('close', () => {
+      if (confirmation.returnValue === 'confirm') { form.dataset.confirmed = 'true'; form.requestSubmit(); }
+    }, { once: true });
+  });
+});
+
+document.querySelectorAll('[data-confirm-form],[data-confirm]').forEach(form => {
+  form.addEventListener('submit', event => {
+    if (form.dataset.confirmed === 'true') return;
+    event.preventDefault();
+    document.getElementById('confirmation-title').textContent = form.dataset.confirmTitle || 'Confirm this change';
+    document.getElementById('confirmation-message').textContent = form.dataset.confirmMessage || form.dataset.confirm || 'Please confirm that you want to continue.';
+    document.getElementById('confirmation-confirm').textContent = form.dataset.confirmButton || 'Confirm';
+    confirmation.returnValue = '';
+    confirmation.showModal();
+    confirmation.addEventListener('close', () => {
+      if (confirmation.returnValue === 'confirm') { form.dataset.confirmed = 'true'; form.requestSubmit(); }
+    }, { once: true });
+  });
+});
+
+const deleteDialog = document.getElementById('candidate-delete-dialog');
+const deleteTrigger = document.querySelector('[data-delete-candidate]');
+if (deleteDialog && deleteTrigger) {
+  const form = deleteDialog.querySelector('[data-delete-form]');
+  const input = form.querySelector('[name="confirmation_name"]');
+  const submit = form.querySelector('[data-delete-submit]');
+  const sync = () => { submit.disabled = input.value.trim() !== form.dataset.confirmValue; };
+  deleteTrigger.addEventListener('click', () => { input.value = ''; sync(); deleteDialog.showModal(); input.focus(); });
+  input.addEventListener('input', sync);
+  form.querySelector('[data-delete-cancel]').addEventListener('click', () => deleteDialog.close());
+  deleteDialog.addEventListener('click', event => { if (event.target === deleteDialog) deleteDialog.close(); });
+}
+
+document.querySelectorAll('[data-tab]').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('[data-tab]').forEach(item => { item.classList.toggle('active', item === tab); item.setAttribute('aria-selected', String(item === tab)); });
+    document.querySelectorAll('[data-panel]').forEach(panel => { const active = panel.dataset.panel === tab.dataset.tab; panel.hidden = !active; panel.classList.toggle('active', active); });
+  });
+});
+
+function selectedValue(form, name) {
+  const input = form.querySelector(`[name="${name}"]:checked`) || form.querySelector(`[name="${name}"]`);
+  return input?.value || '';
+}
+
+function selectedLabel(form, name) {
+  const checked = form.querySelector(`[name="${name}"]:checked`);
+  if (checked) {
+    const label=checked.closest('label');
+    return label?.querySelector('strong')?.textContent.trim() || label?.querySelector('span:not(.choice-icon)')?.textContent.trim() || checked.value;
+  }
+  const field = form.querySelector(`[name="${name}"]`);
+  if (field?.tagName === 'SELECT') return field.options[field.selectedIndex]?.text || '';
+  return field?.value || '';
+}
+
+function setupAvailability(form, interviewId = '') {
+  const grid = form.querySelector('[data-slot-grid]');
+  const status = form.querySelector('[data-slot-status]');
+  const timeInput = form.querySelector('[data-time-input]');
+  if (!grid || !status || !timeInput) return () => {};
+  let request;
+  const load = async (keepSelection = false) => {
+    const date = selectedValue(form, 'date');
+    const duration = selectedValue(form, 'duration');
+    const type = selectedValue(form, 'interview_type');
+    const support = selectedValue(form, 'support_person_id');
+    if (!keepSelection) timeInput.value = '';
+    grid.replaceChildren();
+    status.dataset.state = 'idle';
+    if (!date || !duration || !type || (type === 'TOOL' && !support)) { status.textContent = 'Complete the date and interview setup to see available times.'; return; }
+    request?.abort(); request = new AbortController();
+    status.dataset.state = 'loading';
+    status.innerHTML = '<span class="slot-loader"></span> Checking live availability…';
+    try {
+      const endpoint = new URL(form.dataset.availabilityUrl, window.location.origin);
+      endpoint.searchParams.set('date', date); endpoint.searchParams.set('duration', duration); endpoint.searchParams.set('interview_type', type);
+      if (type === 'TOOL') endpoint.searchParams.set('support_person_id', support);
+      if (interviewId) endpoint.searchParams.set('interview_id', interviewId);
+      const response = await fetch(endpoint, { headers: { Accept: 'application/json' }, credentials: 'same-origin', signal: request.signal });
+      const payload = await response.json();
+      if (!response.ok) throw new Error(payload.message || 'Availability could not be loaded.');
+      status.dataset.state = payload.slots.length ? 'ready' : 'empty';
+      status.textContent = payload.slots.length ? `${payload.slots.length} times available` : `No available times for ${new Date(date + 'T00:00:00').toLocaleDateString('en-IN',{day:'numeric',month:'short'})}. Try another date or duration.`;
+      payload.slots.forEach(slot => {
+        const button = document.createElement('button'); button.type = 'button'; button.className = 'time-slot'; button.dataset.time = slot.start; button.textContent = slot.label;
+        if (timeInput.value === slot.start) { button.classList.add('selected'); button.setAttribute('aria-pressed', 'true'); }
+        button.addEventListener('click', () => { grid.querySelectorAll('.time-slot').forEach(item => { item.classList.remove('selected'); item.setAttribute('aria-pressed', 'false'); }); button.classList.add('selected'); button.setAttribute('aria-pressed', 'true'); timeInput.value = slot.start; });
+        grid.append(button);
+      });
+    } catch (error) {
+      if (error.name === 'AbortError') return;
+      const message = document.createElement('span'); message.textContent = error.message;
+      const retry = document.createElement('button'); retry.type = 'button'; retry.className = 'text-button'; retry.textContent = 'Try again'; retry.addEventListener('click', () => load(true));
+      status.dataset.state = 'error';
+      status.replaceChildren(message, document.createTextNode(' '), retry);
+    }
+  };
+  form.querySelectorAll('[name="date"],[name="duration"],[name="interview_type"],[name="support_person_id"]').forEach(field => field.addEventListener('change', () => load(false)));
+  load(true);
+  return load;
+}
+
+function setupTechnologyPicker(form) {
+  const picker = form.querySelector('[data-technology-picker]');
+  if (!picker) return;
+  const select = form.querySelector('#technology_id'); const trigger = picker.querySelector('[data-technology-trigger]');
+  const panel = picker.querySelector('[data-technology-panel]'); const search = picker.querySelector('[data-technology-search]');
+  const results = picker.querySelector('[data-technology-results]'); const label = picker.querySelector('[data-technology-label]');
+  const options = [...select.options].filter(option => option.value).map(option => ({value: option.value, label: option.text, aliases: option.dataset.aliases || '', group: option.parentElement.label || 'Other technologies'}));
+  const syncLabel = () => { label.textContent = select.options[select.selectedIndex]?.text || 'Select primary technology'; };
+  const close = () => { panel.hidden = true; trigger.setAttribute('aria-expanded', 'false'); };
+  const render = () => {
+    const term = search.value.trim().toLocaleLowerCase(); results.replaceChildren(); let lastGroup = '';
+    const matches = options.filter(item => !term || `${item.label} ${item.aliases}`.toLocaleLowerCase().includes(term));
+    if (!matches.length) { const empty = document.createElement('p'); empty.className = 'technology-picker-empty'; empty.textContent = 'No technology matches that search.'; results.append(empty); return; }
+    matches.forEach(item => {
+      if (item.group !== lastGroup) { const heading = document.createElement('h3'); heading.textContent = item.group; results.append(heading); lastGroup = item.group; }
+      const button = document.createElement('button'); button.type = 'button'; button.className = 'technology-picker-option'; button.textContent = item.label; button.setAttribute('aria-pressed', String(select.value === item.value));
+      button.addEventListener('click', () => { select.value = item.value; select.dispatchEvent(new Event('change', {bubbles:true})); syncLabel(); close(); trigger.focus(); }); results.append(button);
+    });
+  };
+  trigger.addEventListener('click', () => { const open = panel.hidden; panel.hidden = !open; trigger.setAttribute('aria-expanded', String(open)); if (open) { search.value = ''; render(); search.focus(); } });
+  search.addEventListener('input', render); select.addEventListener('change', syncLabel);
+  document.addEventListener('click', event => { if (!picker.contains(event.target)) close(); }); syncLabel(); render();
+}
+
+document.querySelectorAll('[data-booking-form]').forEach(form => {
+  form.classList.add('enhanced');
+  const steps = [...form.querySelectorAll('[data-step]')];
+  let current = 1;
+  const hrFields = form.querySelector('[data-hr-fields]');
+  const supportField = form.querySelector('[data-support-field]');
+  const refreshConditional = () => {
+    const hrAvailable = selectedValue(form, 'hr_availability') === 'available';
+    hrFields.hidden = !hrAvailable; hrFields.querySelectorAll('input').forEach(input => { input.disabled = !hrAvailable; input.required = hrAvailable; });
+    const tool = selectedValue(form, 'interview_type') === 'TOOL';
+    supportField.hidden = !tool; const select = supportField.querySelector('select'); select.disabled = !tool; select.required = tool;
+  };
+  const updateScheduleSummary = () => {
+    const company = selectedValue(form, 'company_name') || 'Interview details'; const role = selectedValue(form, 'job_role') || 'Complete the earlier steps to continue.';
+    form.querySelector('[data-schedule-company]').textContent = company;
+    form.querySelector('[data-schedule-role]').textContent = `${role} · ${selectedLabel(form,'technology_id') || 'Technology'} · ${selectedLabel(form,'interview_type') || 'Normal'} · ${selectedValue(form,'duration') || '30'} min`;
+  };
+  const show = (number, scroll = true) => {
+    current = number; steps.forEach(step => { const active = Number(step.dataset.step) === current; step.hidden = !active; step.classList.toggle('active', active); });
+    form.querySelectorAll('[data-progress]').forEach(item => { const value = Number(item.dataset.progress); item.classList.toggle('active', value === current); item.classList.toggle('complete', value < current); });
+    if (current === 3) updateScheduleSummary();
+    if (current === 4) updateReview();
+    if (scroll) form.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+  };
+  const validate = step => {
+    const fields = [...step.querySelectorAll('input,select')].filter(field => !field.disabled && field.type !== 'hidden');
+    for (const field of fields) { if (!field.checkValidity()) { field.reportValidity(); return false; } }
+    if (Number(step.dataset.step) === 3 && !form.querySelector('[data-time-input]').value) { const status = form.querySelector('[data-slot-status]'); status.textContent = 'Choose one available time to continue.'; status.focus?.(); return false; }
+    return true;
+  };
+  const updateReview = () => {
+    ['company_name','job_role','technology_id','interview_round','interview_type','support_person_id','date','duration'].forEach(name => {
+      const target = form.querySelector(`[data-review-field="${name}"]`); if (!target) return;
+      let label = selectedLabel(form, name) || '—'; if (name === 'duration' && label !== '—') label = selectedValue(form, name) + ' minutes'; if (name === 'date' && selectedValue(form,name)) label = new Date(selectedValue(form,name) + 'T00:00:00').toLocaleDateString('en-IN',{weekday:'short',day:'2-digit',month:'short',year:'numeric'}); target.textContent = label;
+    });
+    const selectedSlot = form.querySelector('.time-slot.selected'); form.querySelector('[data-review-time]').textContent = selectedSlot?.textContent || selectedValue(form,'time') || '—';
+    form.querySelector('[data-review-support]').hidden = selectedValue(form,'interview_type') !== 'TOOL';
+    const hr = selectedValue(form,'hr_availability') === 'unavailable' ? 'Not available' : [selectedValue(form,'hr_name'),selectedValue(form,'hr_phone')].filter(Boolean).join(' · ') || 'Details available';
+    form.querySelector('[data-review-hr-value]').textContent = hr;
+  };
+  form.querySelectorAll('[data-next]').forEach(button => button.addEventListener('click', () => { const step = steps.find(item => Number(item.dataset.step) === current); if (validate(step)) show(Math.min(4, current + 1)); }));
+  form.querySelectorAll('[data-back]').forEach(button => button.addEventListener('click', () => show(Math.max(1, current - 1))));
+  form.querySelectorAll('[name="hr_availability"],[name="interview_type"]').forEach(field => field.addEventListener('change', refreshConditional));
+  form.addEventListener('submit', () => { const button=form.querySelector('[data-book-submit]'); if(button){button.textContent='Booking…';} });
+  refreshConditional(); setupTechnologyPicker(form); setupAvailability(form); show(1, false);
+});
+
+document.querySelectorAll('[data-reschedule-form]').forEach(form => setupAvailability(form, selectedValue(form, 'id')));
+
+const drawer = document.querySelector('#calendar-drawer');
+if (drawer) {
+  document.querySelectorAll('[data-calendar-card]').forEach(card => card.addEventListener('click', () => {
+    ['name','company','time','resource','support'].forEach(key => { const target=drawer.querySelector(`[data-drawer-${key}]`); if(target) target.textContent=card.dataset[key]||'—'; });
+    drawer.querySelector('[data-drawer-link]').href = `${document.documentElement.dataset.basePath || ''}/admin/interview?id=${encodeURIComponent(card.dataset.id)}`;
+    drawer.showModal(); drawer.querySelector('[data-drawer-close]').focus();
+  }));
+  drawer.querySelector('[data-drawer-close]').addEventListener('click',()=>drawer.close());
+  drawer.addEventListener('click',event=>{if(event.target===drawer)drawer.close();});
+}
+
+document.querySelectorAll('[data-interview-type]').forEach(type => {
+  const support=type.form?.querySelector('[data-support-select]'); if(!support)return;
+  const sync=()=>{const tool=type.value==='TOOL';support.disabled=!tool;support.required=tool;if(!tool)support.value='';};
+  type.addEventListener('change',sync);sync();
+});
+
+document.querySelectorAll('[data-candidate-search]').forEach(search => {
+  const select=search.form?.querySelector('[name="candidate_id"]'); if(!select)return;
+  const options=[...select.options].slice(1);
+  search.addEventListener('input',()=>{const term=search.value.trim().toLowerCase();options.forEach(option=>{option.hidden=term!==''&&!option.textContent.toLowerCase().includes(term)});});
+});
+
+document.querySelectorAll('[data-tech-picker]').forEach(picker => {
+  picker.classList.add('enhanced');
+  const search = picker.querySelector('[data-tech-search]');
+  const optionsPanel = picker.querySelector('[data-tech-options]');
+  const optionLabels = [...picker.querySelectorAll('[data-tech-option]')];
+  const inputs = optionLabels.map(label => label.querySelector('input'));
+  const chips = picker.querySelector('[data-tech-chips]');
+  const empty = picker.querySelector('[data-tech-empty]');
+  const max = Number(picker.dataset.max || 20);
+  const open = () => { picker.classList.add('open'); search.setAttribute('aria-expanded','true'); };
+  const close = () => { picker.classList.remove('open'); search.setAttribute('aria-expanded','false'); };
+  const filter = () => {
+    const term=search.value.trim().toLocaleLowerCase();let visible=0;
+    optionLabels.forEach(label=>{const input=label.querySelector('input');const show=input.checked||(term.length>=2&&label.dataset.searchValue.includes(term));label.hidden=!show;if(show)visible++;});
+    empty.textContent=term.length<2?'Type at least 2 characters to search the technology catalog.':'No technologies match your search.';empty.hidden=visible!==0;
+  };
+  const render = () => {
+    chips.replaceChildren();
+    inputs.filter(input => input.checked).forEach(input => {
+      const label = input.closest('[data-tech-option]').querySelector('span').textContent;
+      const chip = document.createElement('span'); chip.className = 'selected-tech-chip';
+      const text = document.createElement('span'); text.textContent = label;
+      const remove = document.createElement('button'); remove.type = 'button'; remove.setAttribute('aria-label', `Remove ${label}`); remove.textContent = '×';
+      remove.addEventListener('click', () => { input.checked = false; render(); search.focus(); });
+      chip.append(text,remove); chips.append(chip);
+    });
+    picker.classList.toggle('has-selection', inputs.some(input => input.checked));
+    filter();
+  };
+  inputs.forEach(input => input.addEventListener('change', () => {
+    if (input.checked && inputs.filter(item => item.checked).length > max) { input.checked = false; search.setCustomValidity(`Select no more than ${max} technologies.`); search.reportValidity(); }
+    else search.setCustomValidity('');
+    render();
+  }));
+  search.addEventListener('focus', open);
+  search.addEventListener('input', () => { open(); filter(); });
+  search.addEventListener('keydown', event => { if(event.key==='Escape'){close();search.blur();} });
+  picker.querySelector('[data-tech-control]').addEventListener('click', event => { if(event.target.closest('button'))return;open();search.focus(); });
+  document.addEventListener('click', event => { if(!picker.contains(event.target))close(); });
+  render();
+});
+
+document.querySelectorAll('[data-admin-candidate]').forEach(candidate => {
+  const technology=candidate.form?.querySelector('[data-admin-technology]');if(!technology)return;
+  const placeholder=technology.querySelector('option[value=""]');const technologyOptions=[...technology.querySelectorAll('option')].filter(option=>option.value);
+  const sync=()=>{const current=technology.value;const selected=candidate.selectedOptions[0];const stack=new Set((selected?.dataset.techIds||'').split(',').filter(Boolean));const preferred=document.createElement('optgroup');preferred.label='Candidate Tech Stack';const other=document.createElement('optgroup');other.label='Other Technologies';technologyOptions.forEach(option=>(stack.has(option.value)?preferred:other).append(option));technology.replaceChildren(placeholder);if(preferred.children.length)technology.append(preferred);technology.append(other);technology.value=current;};
+  candidate.addEventListener('change',sync);sync();
+});
+
+document.querySelectorAll('[data-global-search]').forEach(container => {
+  const input=container.querySelector('input');const results=container.querySelector('.search-results');let timer;let request;
+  input.setAttribute('role','combobox');input.setAttribute('aria-autocomplete','list');
+  const message=text=>{const p=document.createElement('p');p.className='search-message';p.textContent=text;results.replaceChildren(p);results.hidden=false;input.setAttribute('aria-expanded','true');};
+  const close=()=>{results.hidden=true;input.setAttribute('aria-expanded','false');};
+  const renderGroup=(payload,key,title)=>{if(!payload[key].length)return;const heading=document.createElement('h2');heading.textContent=title;results.append(heading);payload[key].forEach(item=>{const link=document.createElement('a');link.className='search-result';link.href=item.url;const strong=document.createElement('strong');strong.textContent=item.label;const meta=document.createElement('span');meta.textContent=item.meta;link.append(strong,meta);results.append(link);});};
+  const search=async()=>{const term=input.value.trim();if(term.length<2){if(term.length)message('Enter at least 2 characters.');else close();return;}request?.abort();request=new AbortController();container.classList.add('loading');input.setAttribute('aria-busy','true');try{const endpoint=new URL(`${document.documentElement.dataset.basePath||''}/admin/search`,window.location.origin);endpoint.searchParams.set('q',term);const response=await fetch(endpoint,{headers:{Accept:'application/json'},credentials:'same-origin',signal:request.signal});if(!response.ok)throw new Error();const payload=await response.json();results.replaceChildren();renderGroup(payload,'candidates','CANDIDATES');renderGroup(payload,'interviews','INTERVIEWS');if(!payload.candidates.length&&!payload.interviews.length)message('No candidates or interviews found.');else{results.hidden=false;input.setAttribute('aria-expanded','true');}}catch(error){if(error.name!=='AbortError')message('Search is unavailable. Try again.');}finally{container.classList.remove('loading');input.removeAttribute('aria-busy');}};
+  input.addEventListener('input',()=>{clearTimeout(timer);timer=setTimeout(search,280);});
+  input.addEventListener('keydown',event=>{if(event.key==='Escape'){close();input.blur();}if(event.key==='ArrowDown'&&!results.hidden){event.preventDefault();results.querySelector('a')?.focus();}});
+  document.addEventListener('click',event=>{if(!container.contains(event.target))close();});
+});

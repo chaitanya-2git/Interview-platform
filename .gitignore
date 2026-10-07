@@ -1,0 +1,14 @@
+.env
+node_modules/
+/storage/logs/*
+!/storage/logs/.gitkeep
+/storage/uploads/*
+!/storage/uploads/.gitkeep
+/storage/resumes/*
+!/storage/resumes/.gitkeep
+/storage/sessions/*
+!/storage/sessions/.gitkeep
+/storage/testing/
+/storage/visual-qa/
+/storage/qa-chrome/
+/storage/qa-resume/
