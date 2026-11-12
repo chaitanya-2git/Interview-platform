@@ -26,6 +26,35 @@ if ($command === 'check') {
     } catch(Throwable){$fail=true;echo "Database/configuration checks: FAILED\n";}
     exit($fail ? 1 : 0);
 }
+/**
+ * MariaDB 12+ names unnamed foreign keys `1`, `2`, ... instead of `<table>_ibfk_N`.
+ * Older migrations drop keys by the legacy name, so rename numeric keys to it first.
+ * Databases created on MySQL or older MariaDB have no numeric names and are untouched.
+ */
+function normalizeLegacyForeignKeyNames(PDO $db): void
+{
+    $keys = $db->query(
+        "SELECT rc.TABLE_NAME, rc.CONSTRAINT_NAME, rc.REFERENCED_TABLE_NAME, rc.UPDATE_RULE, rc.DELETE_RULE,
+                GROUP_CONCAT(CONCAT('`', k.COLUMN_NAME, '`') ORDER BY k.ORDINAL_POSITION) AS cols,
+                GROUP_CONCAT(CONCAT('`', k.REFERENCED_COLUMN_NAME, '`') ORDER BY k.ORDINAL_POSITION) AS ref_cols
+         FROM information_schema.REFERENTIAL_CONSTRAINTS rc
+         JOIN information_schema.KEY_COLUMN_USAGE k
+           ON k.CONSTRAINT_SCHEMA = rc.CONSTRAINT_SCHEMA AND k.TABLE_NAME = rc.TABLE_NAME AND k.CONSTRAINT_NAME = rc.CONSTRAINT_NAME
+         WHERE rc.CONSTRAINT_SCHEMA = DATABASE() AND rc.CONSTRAINT_NAME REGEXP '^[0-9]+$'
+         GROUP BY rc.TABLE_NAME, rc.CONSTRAINT_NAME, rc.REFERENCED_TABLE_NAME, rc.UPDATE_RULE, rc.DELETE_RULE"
+    )->fetchAll(PDO::FETCH_ASSOC);
+    $exists = $db->prepare('SELECT COUNT(*) FROM information_schema.TABLE_CONSTRAINTS WHERE CONSTRAINT_SCHEMA = DATABASE() AND TABLE_NAME = ? AND CONSTRAINT_NAME = ?');
+    foreach ($keys as $key) {
+        $legacy = $key['TABLE_NAME'] . '_ibfk_' . $key['CONSTRAINT_NAME'];
+        $exists->execute([$key['TABLE_NAME'], $legacy]);
+        if ((int) $exists->fetchColumn() > 0) { continue; }
+        $db->exec(sprintf(
+            'ALTER TABLE `%s` DROP FOREIGN KEY `%s`, ADD CONSTRAINT `%s` FOREIGN KEY (%s) REFERENCES `%s` (%s) ON UPDATE %s ON DELETE %s',
+            $key['TABLE_NAME'], $key['CONSTRAINT_NAME'], $legacy, $key['cols'], $key['REFERENCED_TABLE_NAME'], $key['ref_cols'], $key['UPDATE_RULE'], $key['DELETE_RULE']
+        ));
+    }
+}
+
 if (in_array($command, ['migrate', 'seed'], true)) {
     $db = Database::connection();
     $lock = $db->prepare('SELECT GET_LOCK(?, 10)');
@@ -43,6 +72,7 @@ if (in_array($command, ['migrate', 'seed'], true)) {
                 if (!hash_equals($existing, $checksum)) { throw new RuntimeException('Applied migration modified'); }
                 echo 'Already applied: ' . $name . PHP_EOL; continue;
             }
+            if ($command === 'migrate') { normalizeLegacyForeignKeyNames($db); }
             if ($command === 'seed') { $db->beginTransaction(); }
             try {
                 $sql = preg_replace('/^\s*--.*$/m', '', file_get_contents($file));
