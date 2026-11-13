@@ -287,18 +287,35 @@ document.querySelectorAll('[data-tech-picker]').forEach(picker => {
     optionLabels.forEach(label=>{const input=label.querySelector('input');const show=input.checked||(term.length>=2&&label.dataset.searchValue.includes(term));label.hidden=!show;if(show)visible++;});
     empty.textContent=term.length<2?'Type at least 2 characters to search the technology catalog.':'No technologies match your search.';empty.hidden=visible!==0;
   };
+  const years = new Map(optionLabels.map(label => [label.querySelector('input').value, label.dataset.years || '']));
   const render = () => {
     chips.replaceChildren();
     inputs.filter(input => input.checked).forEach(input => {
       const label = input.closest('[data-tech-option]').querySelector('span').textContent;
       const chip = document.createElement('span'); chip.className = 'selected-tech-chip';
       const text = document.createElement('span'); text.textContent = label;
+      const yearsInput = document.createElement('input');
+      Object.assign(yearsInput, { type: 'number', name: `technology_years[${input.value}]`, min: '0', max: '50', step: '0.5', inputMode: 'decimal', placeholder: 'yrs', value: years.get(input.value) || '' });
+      yearsInput.className = 'tech-years'; yearsInput.setAttribute('aria-label', `Years of experience in ${label}`);
+      yearsInput.addEventListener('input', () => years.set(input.value, yearsInput.value));
+      const unit = document.createElement('small'); unit.textContent = 'yrs';
       const remove = document.createElement('button'); remove.type = 'button'; remove.setAttribute('aria-label', `Remove ${label}`); remove.textContent = '×';
       remove.addEventListener('click', () => { input.checked = false; render(); search.focus(); });
-      chip.append(text,remove); chips.append(chip);
+      chip.append(text, yearsInput, unit, remove); chips.append(chip);
     });
     picker.classList.toggle('has-selection', inputs.some(input => input.checked));
     filter();
+  };
+  // Used by resume auto-fill: [{id, years}] adds technologies (up to the maximum) and fills years.
+  picker.applySkills = skills => {
+    let count = inputs.filter(input => input.checked).length;
+    skills.forEach(skill => {
+      const input = inputs.find(item => item.value === String(skill.id));
+      if (!input || input.disabled) return;
+      if (!input.checked) { if (count >= max) return; input.checked = true; count++; }
+      if (skill.years !== null && skill.years !== undefined) years.set(input.value, String(skill.years));
+    });
+    render();
   };
   inputs.forEach(input => input.addEventListener('change', () => {
     if (input.checked && inputs.filter(item => item.checked).length > max) { input.checked = false; search.setCustomValidity(`Select no more than ${max} technologies.`); search.reportValidity(); }
@@ -326,8 +343,20 @@ document.querySelectorAll('[data-global-search]').forEach(container => {
   const message=text=>{const p=document.createElement('p');p.className='search-message';p.textContent=text;results.replaceChildren(p);results.hidden=false;input.setAttribute('aria-expanded','true');};
   const close=()=>{results.hidden=true;input.setAttribute('aria-expanded','false');};
   const renderGroup=(payload,key,title)=>{if(!payload[key].length)return;const heading=document.createElement('h2');heading.textContent=title;results.append(heading);payload[key].forEach(item=>{const link=document.createElement('a');link.className='search-result';link.href=item.url;const strong=document.createElement('strong');strong.textContent=item.label;const meta=document.createElement('span');meta.textContent=item.meta;link.append(strong,meta);results.append(link);});};
-  const search=async()=>{const term=input.value.trim();if(term.length<2){if(term.length)message('Enter at least 2 characters.');else close();return;}request?.abort();request=new AbortController();container.classList.add('loading');input.setAttribute('aria-busy','true');try{const endpoint=new URL(`${document.documentElement.dataset.basePath||''}/admin/search`,window.location.origin);endpoint.searchParams.set('q',term);const response=await fetch(endpoint,{headers:{Accept:'application/json'},credentials:'same-origin',signal:request.signal});if(!response.ok)throw new Error();const payload=await response.json();results.replaceChildren();renderGroup(payload,'candidates','CANDIDATES');renderGroup(payload,'interviews','INTERVIEWS');if(!payload.candidates.length&&!payload.interviews.length)message('No candidates or interviews found.');else{results.hidden=false;input.setAttribute('aria-expanded','true');}}catch(error){if(error.name!=='AbortError')message('Search is unavailable. Try again.');}finally{container.classList.remove('loading');input.removeAttribute('aria-busy');}};
+  const search=async()=>{const term=input.value.trim();if(term.length<2){if(term.length)message('Enter at least 2 characters.');else close();return;}request?.abort();request=new AbortController();container.classList.add('loading');input.setAttribute('aria-busy','true');try{const endpoint=new URL(`${document.documentElement.dataset.basePath||''}/admin/search`,window.location.origin);endpoint.searchParams.set('q',term);const response=await fetch(endpoint,{headers:{Accept:'application/json'},credentials:'same-origin',signal:request.signal});if(!response.ok)throw new Error();const payload=await response.json();results.replaceChildren();renderGroup(payload,'candidates',payload.experience?`CANDIDATES · ${payload.experience.label.toUpperCase()}`:'CANDIDATES');renderGroup(payload,'interviews','INTERVIEWS');if(payload.experience&&payload.candidates.length){const all=document.createElement('a');all.className='search-result search-view-all';all.href=payload.experience.url;all.textContent='View all matching profiles →';results.append(all);}if(!payload.candidates.length&&!payload.interviews.length)message(payload.experience?`No candidates with ${payload.experience.label}.`:'No candidates or interviews found.');else{results.hidden=false;input.setAttribute('aria-expanded','true');}}catch(error){if(error.name!=='AbortError')message('Search is unavailable. Try again.');}finally{container.classList.remove('loading');input.removeAttribute('aria-busy');}};
   input.addEventListener('input',()=>{clearTimeout(timer);timer=setTimeout(search,280);});
   input.addEventListener('keydown',event=>{if(event.key==='Escape'){close();input.blur();}if(event.key==='ArrowDown'&&!results.hidden){event.preventDefault();results.querySelector('a')?.focus();}});
   document.addEventListener('click',event=>{if(!container.contains(event.target))close();});
 });
+
+// Account menu: close when clicking elsewhere or pressing Escape.
+document.addEventListener('click', event => {
+  document.querySelectorAll('details[data-account-menu][open]').forEach(menu => { if (!menu.contains(event.target)) menu.open = false; });
+});
+document.addEventListener('keydown', event => {
+  if (event.key !== 'Escape') return;
+  document.querySelectorAll('details[data-account-menu][open]').forEach(menu => { menu.open = false; menu.querySelector('summary')?.focus(); });
+});
+
+// Inputs marked data-autosubmit submit their form on change (inline handlers are blocked by the CSP).
+document.querySelectorAll('[data-autosubmit]').forEach(input => input.addEventListener('change', () => input.form?.requestSubmit ? input.form.requestSubmit() : input.form?.submit()));

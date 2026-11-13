@@ -10,13 +10,15 @@ final class InterviewRepository
 {
     private const SELECT = "SELECT i.*, COALESCE(u.full_name,i.candidate_name_snapshot) AS candidate_name, u.phone AS candidate_phone,
         (u.id IS NULL) AS candidate_deleted,p.photo_filename,p.updated_at AS candidate_photo_updated_at,
-        t.name AS technology_name, r.name AS resource_name, sp.name AS support_person_name
+        t.name AS technology_name, r.name AS resource_name, sp.name AS support_person_name, c.name AS consultancy_name, loc.name AS location_name
         FROM interviews i
         LEFT JOIN users u ON u.id = i.candidate_id
         LEFT JOIN candidate_profiles p ON p.user_id = i.candidate_id
         JOIN technologies t ON t.id = i.technology_id
         JOIN resources r ON r.id = i.resource_id
-        LEFT JOIN support_people sp ON sp.id = i.support_person_id";
+        LEFT JOIN support_people sp ON sp.id = i.support_person_id
+        LEFT JOIN consultancies c ON c.id = i.consultancy_id
+        LEFT JOIN interview_locations loc ON loc.id = i.location_id";
 
     public function __construct(private readonly PDO $db) {}
 
@@ -44,6 +46,31 @@ final class InterviewRepository
         $query->execute([$interviewId, $candidateId]); return $query->fetch() ?: null;
     }
 
+    /** Interviews of every student managed by a consultancy. */
+    public function consultancyUpcoming(int $consultancyId, string $nowUtc, ?int $limit = null): array
+    {
+        $query = $this->db->prepare(self::SELECT . " WHERE p.consultancy_id = ? AND i.status = 'BOOKED' AND i.end_time >= ? ORDER BY i.start_time" . ($limit ? ' LIMIT ' . $limit : ''));
+        $query->execute([$consultancyId, $nowUtc]); return $query->fetchAll();
+    }
+
+    public function consultancyPast(int $consultancyId, string $nowUtc, ?int $limit = null): array
+    {
+        $query = $this->db->prepare(self::SELECT . " WHERE p.consultancy_id = ? AND i.status = 'BOOKED' AND i.end_time < ? ORDER BY i.start_time DESC" . ($limit ? ' LIMIT ' . $limit : ' LIMIT 200'));
+        $query->execute([$consultancyId, $nowUtc]); return $query->fetchAll();
+    }
+
+    public function consultancyCancelled(int $consultancyId): array
+    {
+        $query = $this->db->prepare(self::SELECT . " WHERE p.consultancy_id = ? AND i.status = 'CANCELLED' ORDER BY i.start_time DESC LIMIT 200");
+        $query->execute([$consultancyId]); return $query->fetchAll();
+    }
+
+    public function consultancyDetail(int $consultancyId, int $interviewId): ?array
+    {
+        $query = $this->db->prepare(self::SELECT . ' WHERE i.id = ? AND p.consultancy_id = ?');
+        $query->execute([$interviewId, $consultancyId]); return $query->fetch() ?: null;
+    }
+
     public function adminDetail(int $interviewId): ?array
     {
         $query = $this->db->prepare(self::SELECT . ' WHERE i.id = ?');
@@ -66,7 +93,7 @@ final class InterviewRepository
         }
         $type = strtoupper(is_string($filters['type'] ?? null) ? $filters['type'] : '');
         if (in_array($type, ['TOOL', 'NORMAL'], true)) { $where[] = 'i.interview_type = ?'; $parameters[] = $type; }
-        foreach (['technology_id' => 'i.technology_id', 'support_person_id' => 'i.support_person_id', 'resource_id' => 'i.resource_id'] as $key => $column) {
+        foreach (['technology_id' => 'i.technology_id', 'support_person_id' => 'i.support_person_id', 'resource_id' => 'i.resource_id', 'consultancy_id' => 'i.consultancy_id'] as $key => $column) {
             $id = filter_var($filters[$key] ?? null, FILTER_VALIDATE_INT, ['options' => ['min_range' => 1]]);
             if ($id) { $where[] = $column . ' = ?'; $parameters[] = $id; }
         }

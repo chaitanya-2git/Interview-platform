@@ -1,0 +1,97 @@
+/* Phase 19: rearranged app shell.
+   Candidates and consultancies get a top navigation bar (few destinations, no sidebar);
+   admins keep a grouped sidebar. Every role gets an account menu and a thumb-friendly bottom bar on phones. */
+
+/* ---------- Account menu (all roles) ---------- */
+.account-menu{position:relative;flex:none}
+.account-menu>summary{display:flex;align-items:center;gap:10px;padding:4px 10px 4px 4px;border:1px solid var(--border);border-radius:999px;background:#fff;cursor:pointer;list-style:none;user-select:none;transition:border-color .15s,box-shadow .15s}
+.account-menu>summary::-webkit-details-marker{display:none}
+.account-menu>summary:hover,.account-menu[open]>summary{border-color:var(--brand-200);box-shadow:0 0 0 3px rgba(11,74,126,.08)}
+.account-menu .avatar.account-avatar{width:34px;height:34px;min-width:34px;font-size:12px;border-radius:50%}
+.account-menu-name{display:flex;flex-direction:column;line-height:1.15;max-width:150px}
+.account-menu-name strong{font-size:13px;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.account-menu-name small{font-size:11px;color:var(--muted)}
+.account-caret{width:16px;height:16px;color:var(--muted);transition:transform .15s}
+.account-menu[open] .account-caret{transform:rotate(180deg)}
+.account-menu-panel{position:absolute;right:0;top:calc(100% + 10px);z-index:120;width:268px;padding:8px;border:1px solid var(--border);border-radius:16px;background:#fff;box-shadow:var(--shadow-lg)}
+.account-menu-head{display:flex;align-items:center;gap:12px;padding:10px 10px 14px;margin-bottom:6px;border-bottom:1px solid var(--border)}
+.account-menu-head span{display:flex;flex-direction:column;min-width:0}
+.account-menu-head strong{font-size:14px;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.account-menu-head small{font-size:12px;color:var(--muted)}
+.account-menu-panel a,.account-menu-panel button{display:flex;align-items:center;gap:10px;width:100%;padding:10px 12px;border:0;border-radius:10px;background:none;color:var(--ink);font:inherit;font-size:14px;font-weight:550;text-align:left;cursor:pointer;text-decoration:none}
+.account-menu-panel a:hover,.account-menu-panel button:hover{background:var(--canvas);color:var(--brand)}
+.account-menu-panel .icon{width:18px;height:18px;color:var(--muted)}
+.account-menu-panel form{margin:6px 0 0;padding-top:6px;border-top:1px solid var(--border)}
+.account-menu-panel form button{color:var(--danger)}
+.account-menu-panel form button .icon{color:var(--danger)}
+
+/* ---------- Candidate / consultancy: top navigation shell ---------- */
+.app-shell{min-height:100vh;display:flex;flex-direction:column}
+.app-header{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.94);-webkit-backdrop-filter:saturate(1.4) blur(12px);backdrop-filter:saturate(1.4) blur(12px);border-bottom:1px solid var(--border)}
+.app-header-inner{display:flex;align-items:center;gap:28px;max-width:1180px;height:70px;margin:0 auto;padding:3px 28px 0}
+.app-logo{display:block;flex:none;line-height:0}
+.app-logo img{width:auto;height:34px}
+.app-nav{display:flex;align-items:center;gap:4px;min-width:0}
+.app-nav a{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 14px;border-radius:10px;color:#475569;font-size:14px;font-weight:600;text-decoration:none;white-space:nowrap;transition:background-color .15s,color .15s}
+.app-nav a .icon{width:18px;height:18px;color:#7b8a9c}
+.app-nav a:hover{background:#f3f7fb;color:var(--brand)}
+.app-nav a[aria-current=page]{background:var(--brand-50);color:var(--brand)}
+.app-nav a[aria-current=page] .icon{color:var(--brand)}
+.app-header-actions{display:flex;align-items:center;gap:12px;margin-left:auto}
+.header-cta.button{height:42px;padding:0 18px;border-radius:12px;font-size:14px}
+.app-shell .main-content{width:100%;max-width:1180px;margin:0 auto;padding:32px 28px 40px;flex:1}
+.app-shell .page-footer{margin-top:48px}
+
+/* ---------- Admin: grouped sidebar + search topbar ---------- */
+.shell-admin .sidebar{display:flex;flex-direction:column}
+.shell-admin .sidebar>.brand-logo{max-width:160px;margin:0 6px 18px}
+.shell-admin .sidebar-cta.button{display:flex;justify-content:center;width:100%;height:44px;margin:0 0 6px;border-radius:12px;font-size:14px}
+.grouped-nav{display:flex;flex-direction:column}
+.grouped-nav .nav-caption{margin:18px 12px 6px;font-size:10.5px;font-weight:700}
+.grouped-nav .nav-item{min-height:40px;margin-bottom:2px;padding:9px 12px;font-size:13.5px;gap:11px}
+.grouped-nav .nav-item .icon{width:18px;height:18px}
+.shell-admin .sidebar-bottom{margin-top:auto;padding-top:16px}
+.shell-admin .topbar{display:flex;align-items:center;gap:16px;height:70px;padding:3px 32px 0}
+.shell-admin .topbar::before{content:none;display:none}
+.shell-admin .topbar-logo{display:none}
+.shell-admin .global-search{flex:1;width:auto;max-width:560px;margin:0 auto 0 0}
+.shell-admin .global-search input{height:42px;border-radius:12px;font-size:13.5px;background:#f6f8fb}
+.shell-admin .topbar-date{display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border:1px solid var(--border);border-radius:999px;background:#fff;color:var(--muted);font-size:12.5px;font-weight:600;white-space:nowrap}
+.shell-admin .topbar-date .icon{width:15px;height:15px}
+
+/* ---------- Bottom tab bar (phones) ---------- */
+.mobile-bottom-nav .tab-icon{display:grid;place-items:center}
+
+@media (max-width:1100px){.account-menu-name,.account-caret{display:none}.account-menu>summary{padding:3px}.app-nav a{padding:0 11px}.app-header-inner{gap:18px}}
+@media (max-width:900px){.app-nav a .icon{display:none}.shell-admin .topbar-date{display:none}}
+
+@media (max-width:760px){
+  .app-header-inner{height:58px;padding:3px 16px 0;gap:12px}
+  .app-logo img{height:28px}
+  .app-nav,.header-cta{display:none!important}
+  .account-menu>summary{border-color:transparent;background:none}
+  .account-menu .avatar.account-avatar{width:36px;height:36px}
+  .account-menu-panel{position:fixed;top:66px;right:12px;width:min(300px,calc(100vw - 24px))}
+  .app-shell .main-content{padding:20px 16px 108px}
+  .app-shell .page-footer{display:none}
+  .candidate-body.booking-active .app-header,.candidate-body:has(.booking-shell.enhanced) .app-header{display:none}
+
+  .shell-admin .topbar{display:grid;grid-template-columns:44px minmax(0,1fr) auto;grid-template-rows:58px 60px;height:118px;padding:3px 16px 0;gap:0 8px}
+  .shell-admin .topbar .mobile-menu{grid-column:1;grid-row:1}
+  .shell-admin .topbar-logo{display:block;grid-column:2;grid-row:1;line-height:0}
+  .shell-admin .topbar-logo img{width:auto;height:28px}
+  .shell-admin .topbar .account-menu{grid-column:3;grid-row:1;justify-self:end}
+  .shell-admin .topbar .global-search{grid-column:1/-1;grid-row:2;align-self:start;max-width:none;width:100%;margin:0}
+  .shell-admin .sidebar-cta.button{margin-top:6px}
+
+  .shell-v2 .mobile-bottom-nav{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);align-items:end;gap:2px;height:auto;min-height:70px;padding:6px 8px max(8px,env(safe-area-inset-bottom))}
+  .shell-v2 .mobile-bottom-nav a,.shell-v2 .mobile-bottom-nav button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:56px;padding:4px 2px;border:0;border-radius:12px;background:none;color:#64748b;font:inherit;font-size:11px;font-weight:600;text-decoration:none}
+  .shell-v2 .mobile-bottom-nav .tab-icon{width:44px;height:28px;border-radius:999px;transition:background-color .15s}
+  .shell-v2 .mobile-bottom-nav .icon{width:21px;height:21px}
+  .shell-v2 .mobile-bottom-nav a[aria-current=page],.shell-v2 .mobile-bottom-nav button[aria-current=page]{background:none;color:var(--brand);font-weight:700}
+  .shell-v2 .mobile-bottom-nav a[aria-current=page] .tab-icon,.shell-v2 .mobile-bottom-nav button[aria-current=page] .tab-icon{background:var(--brand-50)}
+  .shell-v2 .mobile-bottom-nav a.tab-book{color:var(--brand)}
+  .shell-v2 .mobile-bottom-nav a.tab-book .tab-icon{width:50px;height:50px;margin-top:-22px;border-radius:16px;background:var(--brand);color:#fff;box-shadow:0 8px 20px rgba(11,74,126,.32),0 0 0 4px #fff}
+  .shell-v2 .mobile-bottom-nav a.tab-book .icon{width:24px;height:24px}
+}
+@media (max-width:760px){.shell-admin .sidebar-cta.button{width:auto;margin:10px 12px 4px}.shell-admin .grouped-nav .nav-caption{margin-left:14px}}

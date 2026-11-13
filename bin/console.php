@@ -13,7 +13,7 @@ if ($command === 'check') {
     $fail = version_compare(PHP_VERSION, '8.2', '<');
     echo 'PHP ' . PHP_VERSION . ': ' . (!$fail ? 'OK' : '8.2+ REQUIRED') . PHP_EOL;
     foreach ($required as $extension) { $ok = extension_loaded($extension); $fail = $fail || !$ok; echo $extension . ': ' . ($ok ? 'OK' : 'MISSING') . PHP_EOL; }
-    foreach (['storage/logs', 'storage/sessions', 'storage/uploads', 'storage/resumes'] as $directory) { $ok = is_dir(ROOT . '/' . $directory) && is_writable(ROOT . '/' . $directory); $fail = $fail || !$ok; echo $directory . ': ' . ($ok ? 'writable' : 'NOT WRITABLE') . PHP_EOL; }
+    foreach (['storage/logs', 'storage/sessions', 'storage/uploads', 'storage/resumes', 'storage/cache'] as $directory) { $ok = is_dir(ROOT . '/' . $directory) && is_writable(ROOT . '/' . $directory); $fail = $fail || !$ok; echo $directory . ': ' . ($ok ? 'writable' : 'NOT WRITABLE') . PHP_EOL; }
     try { Config::key(); echo "Application key: OK\n"; } catch (Throwable) { $fail=true; echo "Application key: INVALID\n"; }
     $environment=Config::get('APP_ENV','production');$url=Config::get('APP_URL');$urlParts=parse_url($url);$production=$environment==='production';$urlOk=is_array($urlParts)&&isset($urlParts['scheme'],$urlParts['host']);
     if($production){$urlOk=$urlOk&&$urlParts['scheme']==='https'&&rtrim((string)($urlParts['path']??''),'/')==='/interviews';}

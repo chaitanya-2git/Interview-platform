@@ -1,0 +1,11 @@
+/* Phase 12: official BluJay Technologies logo image */
+.brand-logo{align-items:center;line-height:0;letter-spacing:0}
+.brand-logo img{display:block;width:100%;height:auto}
+.sidebar>.brand-logo{width:100%;max-width:172px;margin:0 0 4px}
+.brand-on-dark{width:210px}
+.mobile-brand.brand-logo{width:172px}
+.mobile-drawer-header .drawer-logo{display:block;width:132px;height:auto;margin-bottom:4px}
+.brand-logo:focus-visible{outline:2px solid var(--brand,#103e63);outline-offset:4px;border-radius:6px}
+@media(max-width:760px){.mobile-brand.brand-logo{width:156px}}
+/* Mobile topbar: logo image instead of the "BluJay" text */
+@media(max-width:760px){.topbar::before,.admin-body .topbar::before{content:"";width:112px;height:27px;background:url("brand/blujay-logo.png") left center/contain no-repeat;font-size:0}}

@@ -1,0 +1,63 @@
+/* Phase 16: partner consultancies */
+.account-type-options{display:grid;gap:12px;margin-top:4px}
+.account-type-card{display:flex;align-items:center;gap:14px;padding:16px;border:1px solid #dde4e9;border-radius:14px;background:#fff;color:var(--ink,#12212e);transition:border-color .15s,box-shadow .15s,transform .15s}
+.account-type-card:hover,.account-type-card:focus-visible{border-color:var(--brand,#174265);box-shadow:0 6px 18px rgba(12,32,49,.08);transform:translateY(-1px)}
+.account-type-card>span:nth-child(2){flex:1;min-width:0}
+.account-type-card strong{display:block;font-size:15px}
+.account-type-card small{display:block;font-size:12px;color:var(--muted,#647380);margin-top:3px;line-height:1.5}
+.account-type-card>.icon:last-child{width:16px;height:16px;color:var(--muted,#647380)}
+.account-type-icon{display:inline-grid;place-items:center;flex:none;width:42px;height:42px;border-radius:12px;background:#e5edf4;color:var(--brand,#174265)}
+.account-type-icon .icon{width:20px;height:20px}
+.consultancy-status-card{display:grid;gap:10px;max-width:640px;padding:28px}
+.consultancy-status-card h2{margin:4px 0 0;font-size:20px}
+.consultancy-status-card p{margin:0;line-height:1.7;color:var(--muted,#647380)}
+.consultancy-status-card.status-pending .account-type-icon{background:#fdf3e4;color:#8a5a12}
+.consultancy-status-card.status-rejected .account-type-icon,.consultancy-status-card.status-suspended .account-type-icon{background:#fdeceb;color:#a33a32}
+.review-note{padding:10px 12px;border-radius:10px;background:#f6f7f8}
+.muted{color:var(--muted,#647380);font-size:13px}
+.student-name{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--brand,#174265);margin-bottom:4px}
+.student-name .icon{width:14px;height:14px}
+.student-name a{color:inherit;text-decoration:underline}
+.booking-for{display:flex;align-items:center;gap:14px;padding:14px 16px;margin-bottom:16px}
+.booking-for>div{flex:1;min-width:0}
+.booking-for span:not(.account-type-icon){display:block;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted,#647380)}
+.booking-for strong{display:block;font-size:16px}
+.booking-for small{display:block;font-size:12px;color:var(--muted,#647380);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.quick-actions{display:grid;gap:10px;align-content:start}
+.quick-action{display:flex;align-items:center;gap:12px;padding:12px;border:1px solid #e2e7eb;border-radius:12px;color:var(--ink,#12212e)}
+.quick-action:hover{border-color:var(--brand,#174265)}
+.quick-action>.icon{width:20px;height:20px;color:var(--brand,#174265);flex:none}
+.quick-action strong{display:block;font-size:14px}
+.quick-action small{display:block;font-size:12px;color:var(--muted,#647380)}
+.inline-search{display:flex;align-items:center;gap:10px;padding:12px;margin-bottom:16px}
+.inline-search input{flex:1;min-width:0}
+.student-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.student-card{display:grid;gap:8px;color:var(--ink,#12212e);padding:18px;transition:border-color .15s,box-shadow .15s}
+.student-card:hover{box-shadow:0 6px 18px rgba(12,32,49,.08)}
+.student-card-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.student-card p{margin:0;font-size:13px;color:var(--muted,#647380)}
+.student-card small{font-size:12px;color:var(--muted,#647380)}
+.choose-student{display:grid;gap:14px;max-width:720px}
+.student-options{display:grid;gap:8px;max-height:420px;overflow:auto;padding:2px}
+.student-option{display:flex;align-items:center;gap:12px;padding:12px 14px;border:1px solid #dee5ea;border-radius:12px;cursor:pointer}
+.student-option:has(input:checked){border-color:var(--brand,#174265);background:#eff4f9}
+.student-option>span:nth-of-type(1){flex:1;min-width:0}
+.student-option strong{display:block;font-size:14px}
+.student-option small{display:block;font-size:12px;color:var(--muted,#647380);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.student-option[hidden]{display:none}
+.report-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px;margin-top:16px}
+.report-filters.inline{display:flex;flex-wrap:wrap;align-items:flex-end;gap:10px;margin-bottom:14px}
+.ops-metrics.compact{margin:10px 0 16px}
+.partner-badge{display:inline-block;margin-left:6px;padding:1px 7px;border-radius:999px;background:#eef1fb;color:#33418a;font-size:10px;font-weight:600;vertical-align:middle;white-space:nowrap}
+.consultancy-status.pending{background:#fdf3e4;color:#8a5a12}
+.consultancy-status.approved{background:#e2edf6;color:#103e63}
+.consultancy-status.rejected,.consultancy-status.suspended{background:#fdeceb;color:#a33a32}
+.count-pill{display:inline-block;min-width:18px;padding:0 6px;margin-left:4px;border-radius:999px;background:#edf0f3;font-size:11px;text-align:center}
+.count-pill.attention{background:#f3b544;color:#3d2a05}
+.review-actions{display:flex;flex-wrap:wrap;gap:8px}
+.danger-text{color:#a33a32}
+.detail-grid.single{grid-template-columns:1fr}
+.table-link{color:var(--brand,#174265)}
+@media(max-width:760px){.booking-for{flex-wrap:wrap}.booking-for .button{width:100%}.inline-search{flex-wrap:wrap}}
+.preset-bar a.active .count-pill{background:rgba(255,255,255,.22);color:#fff}
+.card.choose-student{padding:20px}.student-options{overflow-x:hidden}.student-options>*{min-width:0}.student-option{min-width:0}.card.inline-search{padding:12px}

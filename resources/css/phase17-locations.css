@@ -1,0 +1,38 @@
+/* Phase 17: interview office locations (KPHB, Ameerpet) */
+.location-badge{display:inline-block;margin-left:6px;padding:1px 8px;border-radius:999px;background:#e2edf6;color:#103e63;font-size:10px;font-weight:700;letter-spacing:.02em;vertical-align:middle;white-space:nowrap}
+.location-badge.pending{background:#fff1d6;color:#8a5a12;border:1px solid #f3cf88}
+.location-alert{display:flex;align-items:center;gap:14px;padding:14px 18px;margin-bottom:16px;border:1px solid #f3cf88;background:#fffaf0;color:var(--ink,#12212e)}
+.location-alert>span:nth-child(2){flex:1;min-width:0}
+.location-alert strong{display:block;font-size:14px}
+.location-alert small{display:block;font-size:12px;color:var(--muted,#647380)}
+.location-alert .location-badge{margin-left:0}
+.location-days{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:12px 14px;margin-bottom:16px}
+.location-date-form{display:flex;gap:8px;align-items:center}
+.pending-days{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-left:auto;font-size:12px;color:var(--muted,#647380)}
+.pending-days a{padding:5px 10px;border-radius:999px;border:1px solid #e2e7eb;color:var(--ink,#12212e)}
+.pending-days a.active{border-color:var(--brand,#174265);background:#eff4f9}
+.pending-days.done{color:#103e63;font-weight:600}
+.pending-days.done .icon{width:14px;height:14px;vertical-align:-2px}
+.location-list{display:grid;gap:8px}
+.location-row{display:grid;grid-template-columns:80px minmax(0,1fr) auto;align-items:center;gap:14px;padding:12px 14px;border:1px solid #e2e7eb;border-radius:12px;scroll-margin-top:90px}
+.location-row.needs-location{border-color:#f3cf88;background:#fffcf5}
+.location-row time{font-weight:700;font-size:14px}
+.location-row time small{display:block;font-weight:500;font-size:11px;color:var(--muted,#647380)}
+.location-row-copy strong{display:block;font-size:14px}
+.location-row-copy strong a{color:inherit}
+.location-row-copy small{display:block;font-size:12px;color:var(--muted,#647380);margin-top:2px}
+.location-choices{display:flex;gap:6px}
+.location-choices form{margin:0}
+.location-choice{min-width:92px;padding:8px 12px;border:1px solid #cdd6de;border-radius:10px;background:#fff;font:inherit;font-size:13px;font-weight:600;color:var(--ink,#12212e);cursor:pointer}
+.location-choice:hover:not(:disabled){border-color:var(--brand,#174265);background:#eff4f9}
+.location-choice.selected{background:var(--brand,#174265);border-color:var(--brand,#174265);color:#fff;cursor:default;opacity:1}
+.location-assign-form{display:grid;gap:6px;margin:4px 0 14px}
+.location-assign-form label{font-size:12px;font-weight:600}
+.location-assign-row{display:flex;gap:8px}
+.location-assign-row select{flex:1;min-width:0}
+.candidate-location{display:inline-flex;align-items:center;gap:6px;margin-top:6px;padding:3px 10px;border-radius:999px;background:#e2edf6;color:#103e63;font-size:12px;font-weight:600}
+.candidate-location.pending{background:#fff1d6;color:#8a5a12}
+.candidate-location .icon{width:13px;height:13px}
+.detail-location dd strong{font-size:16px;color:#103e63}
+@media(max-width:760px){.location-row{grid-template-columns:64px minmax(0,1fr)}.location-choices{grid-column:1/-1}.location-choice{flex:1}.pending-days{margin-left:0}.location-alert{flex-wrap:wrap}}
+@media(max-width:760px){.location-days{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:8px}.location-date-form{min-width:0}.location-date-form input{min-width:0;flex:1}.pending-days{grid-column:1/-1}}

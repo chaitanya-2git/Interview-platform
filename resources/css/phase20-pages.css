@@ -1,0 +1,295 @@
+/* Phase 20: rearranged page layouts (home dashboards, lists, side panels). */
+
+/* ---------- Shared building blocks ---------- */
+.home-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin:0 0 22px}
+.home-head .eyebrow{display:block;margin-bottom:8px;font-size:11px}
+.home-head h1{margin:0;font-size:32px;line-height:1.15;letter-spacing:-.02em;color:var(--ink)}
+.home-head p{margin:6px 0 0;color:var(--muted);font-size:14px}
+.home-grid{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:24px;align-items:start}
+.home-main,.home-side{display:grid;gap:20px;min-width:0}
+.home-side .card,.home-main .card{margin:0}
+.card-heading .text-link{margin-top:0}
+
+.row-list{display:grid}
+.row-item{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;align-items:center;gap:14px;padding:12px 4px;border-top:1px solid var(--border);color:inherit;text-decoration:none;border-radius:0;transition:background-color .15s}
+.row-item:first-child{border-top:0}
+.row-item:hover{background:#f8fafc}
+.row-item .date-tile{width:48px;min-width:48px;height:52px;margin:0;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:12px;font-size:10px;font-weight:700;letter-spacing:.06em}
+.row-item .date-tile strong{font-size:18px;line-height:1}
+.row-copy{display:flex;flex-direction:column;min-width:0}
+.row-copy strong{font-size:15px;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.row-copy small{margin-top:3px;font-size:13px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.row-item .candidate-location{margin:0}
+.row-chevron{width:18px;height:18px;color:#94a3b8}
+.row-list.compact .row-item{grid-template-columns:minmax(0,1fr) auto;padding:10px 2px}
+.row-empty{margin:4px 0 8px;font-size:14px}
+.row-add{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:12px;padding:12px;border:1.5px dashed var(--brand-200);border-radius:12px;color:var(--brand);font-size:14px;font-weight:600;text-decoration:none;transition:background-color .15s,border-color .15s}
+.row-add:hover{background:var(--brand-50);border-color:var(--brand)}
+.row-add .icon{width:18px;height:18px}
+
+/* ---------- Candidate home ---------- */
+.home-main .next-interview-card{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:24px;margin:0;padding:28px 30px;border-radius:20px;color:#fff}
+.next-label{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:999px;background:rgba(255,255,255,.14);color:#e3f1fb;font-size:12px;font-weight:700;letter-spacing:.02em}
+.next-label .icon{width:14px;height:14px}
+.home-main .next-interview-card h2{margin:14px 0 4px;font-size:30px;line-height:1.15;color:#fff;letter-spacing:-.02em}
+.home-main .next-interview-card .next-role{margin:0;color:rgba(255,255,255,.78);font-size:14px}
+.next-facts{display:grid;grid-template-columns:repeat(4,minmax(0,auto));gap:10px 28px;margin:22px 0 0;padding:16px 0 0;border-top:1px solid rgba(255,255,255,.16)}
+.next-facts div{min-width:0}
+.next-facts dt{display:flex;align-items:center;gap:5px;color:rgba(255,255,255,.66);font-size:11.5px;font-weight:600;letter-spacing:.03em;text-transform:uppercase}
+.next-facts dt .icon{width:13px;height:13px}
+.next-facts dd{margin:4px 0 0;color:#fff;font-size:15px;font-weight:650;white-space:nowrap}
+.next-facts dd.pending{color:var(--logo-yellow)}
+.next-support{display:flex;align-items:center;gap:6px;margin:14px 0 0;color:rgba(255,255,255,.75);font-size:13px}
+.next-support strong{color:#fff}
+.next-support .icon{width:15px;height:15px}
+.home-main .next-actions{display:flex;flex-direction:column;gap:10px;min-width:180px}
+.home-main .next-actions .button{justify-content:center;height:46px;border-radius:12px;font-size:14px}
+.home-main .next-actions .button.primary{background:#fff;border-color:#fff;color:var(--brand);box-shadow:none}
+.home-main .next-actions .button.primary:hover{background:var(--brand-50)}
+.home-main .next-actions .button.secondary{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.28);color:#fff}
+.home-main .next-actions .button.secondary:hover{background:rgba(255,255,255,.16)}
+
+.home-empty{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:20px;padding:26px}
+.home-empty .empty-icon{display:grid;place-items:center;width:52px;height:52px;border-radius:14px;background:var(--brand-50);color:var(--brand)}
+.home-empty h2{margin:0;font-size:19px}
+.home-empty p{margin:4px 0 0;color:var(--muted);font-size:14px}
+
+.side-profile-head{display:flex;align-items:center;gap:14px;margin-bottom:16px}
+.side-profile-head .avatar-lg{width:56px;height:56px;min-width:56px;font-size:18px}
+.side-profile-head div{display:flex;flex-direction:column;min-width:0}
+.side-profile-head strong{font-size:16px;color:var(--ink);overflow-wrap:anywhere}
+.side-profile-head small{margin-top:2px;color:var(--muted);font-size:13px}
+.side-profile .skill-chips{display:flex;flex-wrap:wrap;gap:6px}
+.side-profile .muted{font-size:13px;margin:0}
+.side-button.button{display:flex;justify-content:center;width:100%;margin-top:16px;height:42px;border-radius:12px}
+.side-steps h2{margin:0 0 14px;font-size:16px}
+.side-steps ol{display:grid;gap:14px;margin:0;padding:0;list-style:none}
+.side-steps li{display:grid;grid-template-columns:28px minmax(0,1fr);gap:12px;align-items:start}
+.side-steps li>span{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--brand-50);color:var(--brand);font-size:13px;font-weight:700}
+.side-steps li:nth-child(2)>span{background:var(--accent-50);color:var(--accent)}
+.side-steps li:nth-child(3)>span{background:var(--success-bg);color:var(--success)}
+.side-steps strong{display:block;font-size:14px;color:var(--ink)}
+.side-steps small{display:block;margin-top:2px;font-size:13px;color:var(--muted);line-height:1.45}
+
+@media (max-width:1024px){.home-grid{grid-template-columns:1fr}.home-side{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}}
+@media (max-width:760px){
+  .home-head{margin-bottom:16px}
+  .home-head h1{font-size:26px}
+  .home-head p{font-size:13px}
+  .home-grid,.home-main,.home-side{gap:16px}
+  .home-side{grid-template-columns:1fr}
+  .home-main .next-interview-card{grid-template-columns:1fr;gap:20px;padding:22px 20px;border-radius:18px}
+  .home-main .next-interview-card h2{font-size:25px}
+  .next-facts{grid-template-columns:1fr 1fr;gap:14px 16px}
+  .next-facts dd{font-size:14px;white-space:normal}
+  .home-main .next-actions{display:grid;grid-template-columns:1fr 1fr;min-width:0}
+  .home-main .next-actions .button{font-size:14px;padding:0 10px}
+  .home-main .next-actions .button:only-child{grid-column:1/-1}
+  .home-empty{grid-template-columns:auto minmax(0,1fr);padding:20px}
+  .home-empty .button{grid-column:1/-1;justify-content:center}
+  .row-item{grid-template-columns:auto minmax(0,1fr) auto;gap:12px}
+  .row-item .row-chevron{display:none}
+  .row-list.compact .row-item .row-chevron{display:block}
+}
+.home-list,.side-recent{padding:0 22px 20px}
+.home-list>.card-heading,.side-recent>.card-heading{padding:20px 0 10px;border:0}
+.home-list>.card-heading h2,.side-recent>.card-heading h2{font-size:16px}
+.side-profile,.side-steps{padding:22px}
+@media (max-width:760px){.home-list,.side-recent{padding:0 16px 16px}.side-profile,.side-steps{padding:18px}}
+
+/* ---------- Interview lists (candidate + consultancy) ---------- */
+.interview-tabs.segmented{display:inline-flex;gap:4px;margin:0 0 18px;padding:4px;border:1px solid var(--border);border-radius:14px;background:#fff;box-shadow:none}
+.interview-tabs.segmented button{display:inline-flex;align-items:center;gap:8px;height:38px;margin:0;padding:0 16px;border:0;border-radius:10px;background:none;color:var(--muted);font:inherit;font-size:14px;font-weight:600;cursor:pointer}
+.interview-tabs.segmented button span{min-width:22px;padding:1px 7px;border-radius:999px;background:#eef2f7;color:#475569;font-size:12px;text-align:center}
+.interview-tabs.segmented button.active{background:var(--brand);color:#fff;box-shadow:0 2px 8px rgba(11,74,126,.2)}
+.interview-tabs.segmented button.active span{background:rgba(255,255,255,.2);color:#fff}
+.iv-list{display:grid;gap:12px}
+.iv-card.card{margin:0;padding:0;overflow:hidden;transition:border-color .15s,box-shadow .15s}
+.iv-card.card:hover{border-color:var(--brand-200);box-shadow:var(--shadow-lg)}
+.iv-card.cancelled{opacity:.72}
+.iv-main{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:18px;padding:18px 20px;color:inherit;text-decoration:none}
+.iv-main .date-tile{width:58px;min-width:58px;height:62px;margin:0;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:14px;font-size:11px;font-weight:700;letter-spacing:.06em}
+.iv-main .date-tile strong{font-size:22px;line-height:1}
+.iv-copy{display:flex;flex-direction:column;min-width:0}
+.iv-copy .student-name{display:inline-flex;align-items:center;gap:5px;margin-bottom:4px;color:var(--brand);font-size:13px;font-weight:700}
+.iv-copy .student-name .icon{width:14px;height:14px}
+.iv-title{font-size:17px;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.iv-copy>small{margin-top:2px;color:var(--muted);font-size:13.5px}
+.iv-meta{display:flex;flex-wrap:wrap;gap:4px 16px;margin-top:8px;color:#475569;font-size:13px;font-weight:550}
+.iv-meta span{display:inline-flex;align-items:center;gap:5px}
+.iv-meta .icon{width:14px;height:14px;color:#94a3b8}
+.iv-chips{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:10px}
+.iv-chips .badge,.iv-chips .candidate-location{margin:0}
+.iv-actions{display:flex;justify-content:flex-end;gap:8px;padding:12px 20px;border-top:1px solid var(--border);background:#fafcfe}
+.iv-actions .button{height:38px;padding:0 16px;border-radius:10px;font-size:13.5px}
+@media (max-width:760px){
+  .list-heading .heading-book{display:none}
+  .interview-tabs.segmented{display:grid;grid-template-columns:repeat(3,1fr);width:100%}
+  .interview-tabs.segmented button{justify-content:center;padding:0 6px;font-size:13px;gap:6px}
+  .iv-main{grid-template-columns:auto minmax(0,1fr);gap:14px;padding:16px}
+  .iv-main .row-chevron{display:none}
+  .iv-main .date-tile{width:52px;min-width:52px;height:56px}
+  .iv-title{font-size:16px;white-space:normal}
+  .iv-actions{display:grid;grid-template-columns:1fr 1fr;padding:12px 16px}
+  .iv-actions .button{justify-content:center}
+}
+
+/* ---------- Interview detail (candidate + consultancy) ---------- */
+.detail-head.card,.detail-more.card{max-width:860px;margin:0 0 16px;padding:26px 28px}
+.detail-head-top{display:flex;align-items:flex-start;justify-content:space-between;gap:20px}
+.detail-head h1{margin:12px 0 4px;font-size:30px;line-height:1.15;letter-spacing:-.02em;color:var(--ink)}
+.detail-head-top p{margin:0;color:var(--muted);font-size:14px}
+.detail-head .student-name{display:flex;align-items:center;gap:6px;margin-top:8px;font-size:14px}
+.detail-head .student-name .icon{width:15px;height:15px}
+.detail-head .date-tile.large{width:72px;min-width:72px;height:78px;margin:0;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:16px;font-size:12px;font-weight:700;letter-spacing:.06em}
+.detail-head .date-tile.large strong{font-size:28px;line-height:1}
+.fact-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:22px 0 0}
+.fact-grid div{padding:14px 16px;border:1px solid var(--border);border-radius:14px;background:#fafcfe;min-width:0}
+.fact-grid dt{display:flex;align-items:center;gap:6px;color:var(--muted);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+.fact-grid dt .icon{width:14px;height:14px}
+.fact-grid dd{margin:6px 0 0;color:var(--ink);font-size:15px;font-weight:650}
+.fact-grid dd small{color:var(--muted);font-weight:500}
+.fact-grid .fact-location{background:var(--accent-50);border-color:#bfe2ef}
+.fact-grid .fact-location dd{color:#0b5f80;font-size:17px}
+.fact-grid .fact-location.pending{background:var(--warning-bg);border-color:#f3d48e}
+.fact-grid .fact-location.pending dd{color:var(--warning)}
+.fact-note{display:flex;align-items:center;gap:8px;margin:12px 0 0;color:var(--muted);font-size:13px}
+.fact-note .icon{width:15px;height:15px;color:var(--warning)}
+.detail-actions{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:22px;padding-top:20px;border-top:1px solid var(--border)}
+.detail-actions form{margin:0}
+.detail-actions .button{height:44px;padding:0 20px;border-radius:12px;font-size:14px}
+.detail-actions .danger-button{color:var(--danger)}
+.detail-actions .danger-button:hover{background:var(--danger-bg);border-color:#f6cfcc;color:var(--danger)}
+.detail-actions .muted{margin:0;font-size:14px}
+.detail-actions .cutoff-note{display:flex;align-items:center;gap:8px;color:var(--warning);font-size:14px}
+.detail-more h2{margin:0 0 6px;font-size:16px}
+.detail-list{display:grid;grid-template-columns:1fr 1fr;gap:0 32px;margin:0}
+.detail-list div{padding:14px 0;border-bottom:1px solid var(--border)}
+.detail-list dt{color:var(--muted);font-size:12.5px}
+.detail-list dd{margin:4px 0 0;color:var(--ink);font-size:14.5px;font-weight:600;overflow-wrap:anywhere}
+@media (max-width:760px){
+  .detail-head.card,.detail-more.card{padding:20px 18px}
+  .detail-head h1{font-size:24px}
+  .detail-head .date-tile.large{width:58px;min-width:58px;height:62px}
+  .detail-head .date-tile.large strong{font-size:22px}
+  .fact-grid{grid-template-columns:1fr 1fr;gap:10px}
+  .fact-grid div{padding:12px}
+  .fact-grid dd{font-size:14px}
+  .detail-actions{display:grid;grid-template-columns:1fr 1fr}
+  .detail-actions .button{width:100%;justify-content:center;padding:0 10px}
+  .detail-actions>.muted,.detail-actions>.cutoff-note,.detail-actions>:only-child{grid-column:1/-1}
+  .detail-list{grid-template-columns:1fr}
+}
+.detail-actions .button{white-space:nowrap}
+@media (max-width:760px){.detail-actions .button{font-size:13.5px;gap:6px}.detail-actions form .button{width:100%}}
+
+/* ---------- Candidate profile ---------- */
+.profile-layout.v2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:start}
+.profile-layout.v2 .profile-col{display:grid;gap:20px;min-width:0}
+.profile-layout.v2 .card{margin:0;max-width:none}
+.profile-layout.v2 .profile-header{padding:24px}
+.profile-layout.v2 .profile-details{padding:4px 24px 16px}
+.profile-layout.v2 .profile-stack-detail{grid-column:1/-1}
+@media (max-width:900px){.profile-layout.v2{grid-template-columns:1fr}}
+@media (max-width:760px){.profile-layout.v2,.profile-layout.v2 .profile-col{gap:16px}.profile-layout.v2 .profile-header{padding:18px}.profile-layout.v2 .profile-details{padding:0 18px 12px;grid-template-columns:1fr 1fr}}
+
+/* ---------- Dashboards: attention bar, metric strip, ops grid ---------- */
+.home-head-cta.button{height:44px;padding:0 18px;border-radius:12px;font-size:14px;flex:none}
+.attention-bar{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:14px;margin:0 0 18px;padding:14px 18px;border:1px solid #f3d48e;border-radius:16px;background:#fffbf0;color:var(--ink);text-decoration:none;transition:box-shadow .15s}
+.attention-bar:hover{box-shadow:var(--shadow)}
+.attention-icon{display:grid;place-items:center;width:40px;height:40px;border-radius:12px;background:var(--logo-yellow);color:#3d2a05}
+.attention-icon .icon{width:20px;height:20px}
+.attention-copy{display:flex;flex-direction:column;min-width:0}
+.attention-copy strong{font-size:15px}
+.attention-copy small{margin-top:2px;color:var(--muted);font-size:13px}
+.attention-action{display:inline-flex;align-items:center;gap:6px;padding:9px 14px;border-radius:10px;background:var(--ink);color:#fff;font-size:13.5px;font-weight:650;white-space:nowrap}
+.attention-action .icon{width:15px;height:15px}
+.metric-strip.card{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));margin:0 0 20px;padding:0;overflow:hidden}
+.metric-strip>div{display:flex;flex-direction:column;gap:6px;padding:16px 20px;border-left:1px solid var(--border);min-width:0}
+.metric-strip>div:first-child{border-left:0}
+.metric-strip span{display:flex;align-items:center;gap:6px;color:var(--muted);font-size:12.5px;font-weight:600;white-space:nowrap}
+.metric-strip span .icon{width:15px;height:15px;color:var(--accent)}
+.metric-strip strong{font-size:26px;line-height:1;color:var(--ink);letter-spacing:-.02em}
+.ops-grid{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:20px;align-items:start}
+.ops-grid .card{margin:0}
+.ops-grid .now-next{display:grid;gap:16px;align-content:start}
+.focus-card .eyebrow{display:inline-flex;align-items:center;gap:6px}
+.live-dot{width:8px;height:8px;border-radius:50%;background:var(--logo-red);box-shadow:0 0 0 4px rgba(239,83,80,.18)}
+.focus-card.live{border-color:#f6cfcc}
+.quick-links.card{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:12px}
+.quick-links a{display:flex;align-items:center;gap:8px;padding:12px;border:1px solid var(--border);border-radius:12px;color:var(--ink);font-size:13.5px;font-weight:600;text-decoration:none;transition:background-color .15s,border-color .15s}
+.quick-links a:hover{background:var(--brand-50);border-color:var(--brand-200);color:var(--brand)}
+.quick-links .icon{width:17px;height:17px;color:var(--accent)}
+@media (max-width:1100px){.ops-grid{grid-template-columns:1fr}.ops-grid .now-next{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}}
+@media (max-width:760px){
+  .home-head{flex-direction:column;align-items:stretch}
+  .home-head-cta.button{width:100%;justify-content:center}
+  .attention-bar{grid-template-columns:auto minmax(0,1fr);padding:14px}
+  .attention-action{grid-column:1/-1;justify-content:center}
+  .metric-strip.card{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .metric-strip>div{padding:12px 14px;border-top:1px solid var(--border)}
+  .metric-strip>div:nth-child(-n+3){border-top:0}
+  .metric-strip>div:nth-child(4){border-left:0}
+  .metric-strip>div:nth-child(5){grid-column:span 2}
+  .metric-strip strong{font-size:22px}
+  .metric-strip span{font-size:11.5px}
+  .ops-grid .now-next{grid-template-columns:1fr;order:-1}
+  .ops-grid{gap:16px}
+}
+/* Admin phone topbar: the bottom bar's "More" opens the full menu, so the header shows logo + account only. */
+@media (max-width:760px){
+  .shell-admin .topbar{grid-template-columns:minmax(0,1fr) auto}
+  .shell-admin .topbar .mobile-menu{display:none}
+  .shell-admin .topbar-logo{grid-column:1}
+  .shell-admin .topbar .account-menu{grid-column:2}
+}
+@media (min-width:761px){.shell-admin .home-head-cta{display:none}}
+@media (min-width:761px){.shell-admin .page-heading a.button[href$="admin/interview/new"]{display:none}}
+
+/* ---------- Action tiles (consultancy home) ---------- */
+.action-tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:0 0 18px}
+.action-tile{display:flex;align-items:center;gap:14px;padding:16px 18px;border:1px solid var(--border);border-radius:16px;background:#fff;color:var(--ink);text-decoration:none;box-shadow:var(--shadow);transition:border-color .15s,transform .15s,box-shadow .15s}
+.action-tile:hover{border-color:var(--brand-200);box-shadow:var(--shadow-lg);transform:translateY(-1px)}
+.action-tile-icon{display:grid;place-items:center;flex:none;width:44px;height:44px;border-radius:12px;background:var(--brand-50);color:var(--brand)}
+.action-tile-icon .icon{width:21px;height:21px}
+.action-tile span:last-child{display:flex;flex-direction:column;min-width:0}
+.action-tile strong{font-size:15px}
+.action-tile small{margin-top:2px;color:var(--muted);font-size:13px;line-height:1.4}
+.action-tile.primary{background:linear-gradient(155deg,#0b4a7e 0%,#073256 100%);border-color:#0b4a7e;color:#fff}
+.action-tile.primary small{color:rgba(255,255,255,.75)}
+.action-tile.primary .action-tile-icon{background:rgba(255,255,255,.14);color:#fff}
+@media (max-width:900px){.action-tiles{grid-template-columns:1fr}}
+@media (max-width:760px){.action-tiles{gap:10px}.action-tile{padding:14px}}
+.card-heading .text-link{white-space:nowrap;flex:none}
+@media (max-width:760px){.metric-strip span{white-space:normal;line-height:1.25;align-items:flex-start}.metric-strip span .icon{margin-top:1px;flex:none}.home-list>.card-heading p{display:none}}
+.metric-strip>div{justify-content:space-between}
+.ops-metrics span{font-size:12.5px;font-weight:600}
+@media (max-width:760px){.ops-metrics{gap:10px}.ops-metrics article{padding:12px 14px}.ops-metrics strong{margin-top:6px;font-size:22px}.ops-metrics span{font-size:12px}}
+.report-grid .card>.muted{padding:0 24px 22px;margin:0}
+
+/* ---------- Admin interview detail controls ---------- */
+.detail-candidate{display:flex;align-items:center;gap:10px;margin-top:8px!important}
+.detail-candidate .avatar{width:34px;height:34px;min-width:34px;font-size:12px}
+.detail-candidate strong{color:var(--ink);font-size:15px}
+.admin-controls{display:flex;flex-wrap:wrap;align-items:flex-end;gap:12px 20px;margin-top:22px;padding-top:20px;border-top:1px solid var(--border)}
+.admin-controls .location-assign-form{margin:0;min-width:260px;flex:1;max-width:380px}
+.admin-controls .location-assign-row select{height:44px}
+.admin-controls .location-assign-row .button{height:44px}
+.admin-controls .detail-actions{margin:0;padding:0;border:0;margin-left:auto}
+@media (max-width:760px){.admin-controls{display:grid}.admin-controls .location-assign-form{min-width:0;max-width:none}.admin-controls .detail-actions{margin-left:0}}
+
+/* Booking: the "what you're booking" summary above the slot picker (was styled for phones only). */
+.booking-selection-summary{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 28px 18px;padding:12px 16px;border:1px solid var(--brand-100);border-radius:12px;background:var(--brand-50)}
+.booking-selection-summary div{min-width:0}
+.booking-selection-summary strong,.booking-selection-summary span{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.booking-selection-summary strong{color:var(--ink);font-size:14px}
+.booking-selection-summary span{margin-top:2px;color:var(--muted);font-size:12.5px}
+.booking-selection-summary button{flex:none;padding:7px 12px;border:1px solid var(--brand-200);border-radius:9px;background:#fff;color:var(--brand);font:inherit;font-size:13px;font-weight:600;cursor:pointer}
+@media (max-width:760px){.booking-selection-summary{margin:0 16px 16px}}
+.booking-review-identity{display:grid;gap:2px;margin:0 28px 6px;padding:16px 18px;border:1px solid var(--brand-100);border-radius:14px;background:var(--brand-50)}
+.booking-review-identity strong{font-size:18px;color:var(--ink)}
+.booking-review-identity span{color:var(--ink);font-size:14px}
+.booking-review-identity p{margin:4px 0 0;color:var(--muted);font-size:13px}
+.booking-review-identity p span{color:inherit;font-size:inherit}
+@media (max-width:760px){.booking-review-identity{margin:0 16px 6px}}
+.app-shell .list-heading .heading-book{display:none}

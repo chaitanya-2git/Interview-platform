@@ -12,3 +12,5 @@ node_modules/
 /storage/visual-qa/
 /storage/qa-chrome/
 /storage/qa-resume/
+/storage/cache/*
+!/storage/cache/.gitkeep

@@ -18,8 +18,8 @@ final class AdminRepository
     public function calendar(DateTimeImmutable $fromLocal, DateTimeImmutable $toLocal): array
     {
         $utc = new DateTimeZone('UTC');
-        $query = $this->db->prepare("SELECT i.*,COALESCE(u.full_name,i.candidate_name_snapshot) candidate_name,u.phone candidate_phone,(u.id IS NULL) candidate_deleted,p.photo_filename,p.updated_at candidate_photo_updated_at,t.name technology_name,r.name resource_name,sp.name support_person_name
-            FROM interviews i LEFT JOIN users u ON u.id=i.candidate_id LEFT JOIN candidate_profiles p ON p.user_id=i.candidate_id JOIN technologies t ON t.id=i.technology_id JOIN resources r ON r.id=i.resource_id LEFT JOIN support_people sp ON sp.id=i.support_person_id
+        $query = $this->db->prepare("SELECT i.*,COALESCE(u.full_name,i.candidate_name_snapshot) candidate_name,u.phone candidate_phone,(u.id IS NULL) candidate_deleted,p.photo_filename,p.updated_at candidate_photo_updated_at,t.name technology_name,r.name resource_name,sp.name support_person_name,cn.name consultancy_name,loc.name location_name
+            FROM interviews i LEFT JOIN users u ON u.id=i.candidate_id LEFT JOIN candidate_profiles p ON p.user_id=i.candidate_id JOIN technologies t ON t.id=i.technology_id JOIN resources r ON r.id=i.resource_id LEFT JOIN support_people sp ON sp.id=i.support_person_id LEFT JOIN consultancies cn ON cn.id=i.consultancy_id LEFT JOIN interview_locations loc ON loc.id=i.location_id
             WHERE i.status='BOOKED' AND i.start_time>=? AND i.start_time<? ORDER BY i.start_time,r.name");
         $query->execute([$fromLocal->setTimezone($utc)->format('Y-m-d H:i:s'), $toLocal->setTimezone($utc)->format('Y-m-d H:i:s')]);
         return $query->fetchAll();
@@ -59,6 +59,12 @@ final class AdminRepository
     {
         $where=["u.role='CANDIDATE'"]; $params=[];
         $search=trim((string)($filters['search']??''));
+        $experience=$search!==''?\App\Services\ExperienceQuery::parse($this->db,$search):null;
+        if($experience!==null){
+            if($experience['technology_ids']){$marks=implode(',',array_fill(0,count($experience['technology_ids']),'?'));$where[]="EXISTS(SELECT 1 FROM candidate_technologies cx WHERE cx.candidate_id=u.id AND cx.technology_id IN ($marks) AND cx.years_experience>=?)";array_push($params,...$experience['technology_ids']);$params[]=$experience['min_years'];}
+            else{$where[]='p.experience_years>=?';$params[]=$experience['min_years'];}
+            $search='';
+        }
         if($search!==''){ $term='%'.str_replace(['\\','%','_'],['\\\\','\\%','\\_'],mb_substr($search,0,100)).'%'; $where[]="(u.full_name LIKE ? ESCAPE '\\\\' OR u.phone LIKE ? ESCAPE '\\\\')"; array_push($params,$term,$term); }
         $id=filter_var($filters['technology_id']??null,FILTER_VALIDATE_INT,['options'=>['min_range'=>1]]);if($id){$where[]='(p.technology_id=? OR EXISTS(SELECT 1 FROM candidate_technologies ct WHERE ct.candidate_id=u.id AND ct.technology_id=?))';array_push($params,$id,$id);}
         $classification=(string)($filters['classification']??''); if(in_array($classification,['Genuine','Fake'],true)){$where[]='p.classification=?';$params[]=$classification;}
@@ -66,7 +72,7 @@ final class AdminRepository
         $base=" FROM users u JOIN candidate_profiles p ON p.user_id=u.id LEFT JOIN candidate_resumes cr ON cr.candidate_id=u.id WHERE ".implode(' AND ',$where);
         $count=$this->db->prepare('SELECT COUNT(*)'.$base);$count->execute($params);$total=(int)$count->fetchColumn();$pages=max(1,(int)ceil($total/$perPage));$page=min(max(1,$page),$pages);
         $offset=($page-1)*$perPage;
-        $sql="SELECT u.id,u.full_name,u.phone,u.active,p.classification,p.photo_filename,p.updated_at profile_updated_at,cr.original_filename resume_original_filename,cr.mime_type resume_mime_type,cr.file_size resume_file_size,cr.uploaded_at resume_uploaded_at,
+        $sql="SELECT u.id,u.full_name,u.phone,u.active,p.classification,p.experience_years,(SELECT name FROM consultancies WHERE id=p.consultancy_id) consultancy_name,p.photo_filename,p.updated_at profile_updated_at,cr.original_filename resume_original_filename,cr.mime_type resume_mime_type,cr.file_size resume_file_size,cr.uploaded_at resume_uploaded_at,
             (SELECT COUNT(*) FROM interviews i WHERE i.candidate_id=u.id AND i.status='BOOKED' AND i.end_time>UTC_TIMESTAMP()) upcoming_count,
             (SELECT MIN(i.start_time) FROM interviews i WHERE i.candidate_id=u.id AND i.status='BOOKED' AND i.end_time>UTC_TIMESTAMP()) next_start".$base." ORDER BY u.full_name LIMIT $perPage OFFSET $offset";
         $query=$this->db->prepare($sql);$query->execute($params);$rows=(new CandidateTechnologyRepository($this->db))->attach($query->fetchAll());return ['rows'=>$rows,'total'=>$total,'page'=>$page,'pages'=>$pages];
@@ -74,7 +80,7 @@ final class AdminRepository
 
     public function candidate(int $id): ?array
     {
-        $q=$this->db->prepare("SELECT u.id,u.full_name,u.phone,u.active,p.classification,p.photo_filename,p.updated_at profile_updated_at,cr.original_filename resume_original_filename,cr.mime_type resume_mime_type,cr.file_size resume_file_size,cr.uploaded_at resume_uploaded_at FROM users u JOIN candidate_profiles p ON p.user_id=u.id LEFT JOIN candidate_resumes cr ON cr.candidate_id=u.id WHERE u.id=? AND u.role='CANDIDATE'");$q->execute([$id]);$row=$q->fetch();return $row?(new CandidateTechnologyRepository($this->db))->attach([$row])[0]:null;
+        $q=$this->db->prepare("SELECT u.id,u.full_name,u.phone,u.active,p.classification,p.experience_years,p.photo_filename,p.updated_at profile_updated_at,cr.original_filename resume_original_filename,cr.mime_type resume_mime_type,cr.file_size resume_file_size,cr.uploaded_at resume_uploaded_at FROM users u JOIN candidate_profiles p ON p.user_id=u.id LEFT JOIN candidate_resumes cr ON cr.candidate_id=u.id WHERE u.id=? AND u.role='CANDIDATE'");$q->execute([$id]);$row=$q->fetch();return $row?(new CandidateTechnologyRepository($this->db))->attach([$row])[0]:null;
     }
 
     public function candidateInterviewCount(int $id): int

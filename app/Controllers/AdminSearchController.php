@@ -23,9 +23,10 @@ final class AdminSearchController
         $payload=[
             'query'=>$q,
             'minimum'=>2,
+            'experience'=>isset($results['experience'])?['label'=>$results['experience']['label'],'url'=>View::url('admin/candidates?search='.rawurlencode($q))]:null,
             'candidates'=>array_map(static fn($r)=>[
                 'label'=>$r['full_name'],
-                'meta'=>($r['phone']??'No phone').' · '.$r['tech_stack_label'],
+                'meta'=>isset($r['matched_years'])?$r['matched_skill'].' · '.\App\Repositories\CandidateTechnologyRepository::yearsText((float)$r['matched_years']).' · '.($r['phone']??'No phone'):($r['phone']??'No phone').' · '.$r['tech_stack_label'],
                 'url'=>View::url('admin/candidate?id='.$r['id']),
             ],$results['candidates']),
             'interviews'=>array_map(static fn($r)=>[

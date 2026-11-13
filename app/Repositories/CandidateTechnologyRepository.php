@@ -23,20 +23,31 @@ final class CandidateTechnologyRepository
         $ids=array_values(array_unique(array_filter(array_map('intval',$candidateIds),static fn($id)=>$id>0)));
         if(!$ids)return [];
         $marks=implode(',',array_fill(0,count($ids),'?'));
-        $sql="SELECT x.candidate_id,t.id,t.name,t.active FROM (
-            SELECT candidate_id,technology_id FROM candidate_technologies WHERE candidate_id IN ($marks)
-            UNION
-            SELECT user_id candidate_id,technology_id FROM candidate_profiles WHERE user_id IN ($marks) AND technology_id IS NOT NULL
-        ) x JOIN technologies t ON t.id=x.technology_id ORDER BY x.candidate_id,t.name";
+        $sql="SELECT x.candidate_id,t.id,t.name,t.active,MAX(x.years_experience) years_experience FROM (
+            SELECT candidate_id,technology_id,years_experience FROM candidate_technologies WHERE candidate_id IN ($marks)
+            UNION ALL
+            SELECT user_id candidate_id,technology_id,NULL FROM candidate_profiles WHERE user_id IN ($marks) AND technology_id IS NOT NULL
+        ) x JOIN technologies t ON t.id=x.technology_id GROUP BY x.candidate_id,t.id,t.name,t.active ORDER BY x.candidate_id,t.name";
         $q=$this->db->prepare($sql);$q->execute([...$ids,...$ids]);$result=[];
-        foreach($q as $row)$result[(int)$row['candidate_id']][]=['id'=>(int)$row['id'],'name'=>$row['name'],'active'=>(bool)$row['active']];
+        foreach($q as $row)$result[(int)$row['candidate_id']][]=['id'=>(int)$row['id'],'name'=>$row['name'],'active'=>(bool)$row['active'],'years'=>$row['years_experience']!==null?(float)$row['years_experience']:null];
         return $result;
     }
 
     public function attach(array $rows):array
     {
         $stacks=$this->stacks(array_column($rows,'id'));
-        foreach($rows as &$row){$row['tech_stack']=$stacks[(int)$row['id']]??[];$row['tech_stack_label']=$row['tech_stack']?implode(' · ',array_column($row['tech_stack'],'name')):'Tech stack not added yet';}
+        foreach($rows as &$row){$row['tech_stack']=$stacks[(int)$row['id']]??[];$row['tech_stack_label']=$row['tech_stack']?implode(' · ',array_map(static fn($t)=>self::skillLabel($t),$row['tech_stack'])):'Tech stack not added yet';}
         unset($row);return $rows;
+    }
+
+    public static function skillLabel(array $technology):string
+    {
+        $years=$technology['years']??null;
+        if($years===null)return $technology['name'];
+        return $technology['name'].' ('.self::yearsText((float)$years).')';
+    }
+    public static function yearsText(float $years):string
+    {
+        return rtrim(rtrim(number_format($years,1,'.',''),'0'),'.').' '.($years===1.0?'yr':'yrs');
     }
 }

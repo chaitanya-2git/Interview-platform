@@ -1,0 +1,18 @@
+/* Phase 15: experience per skill + resume auto-fill */
+.selected-tech-chip{display:inline-flex;align-items:center;gap:6px}
+.selected-tech-chip .tech-years{width:52px;height:26px;padding:2px 6px;border:1px solid #cdd6de;border-radius:6px;background:#fff;font:inherit;font-size:12px;text-align:center;color:var(--ink,#12212e)}
+.selected-tech-chip .tech-years:focus{outline:2px solid var(--brand,#174265);outline-offset:1px;border-color:transparent}
+.selected-tech-chip small{font-size:10px;color:var(--muted,#647380);margin-left:-2px}
+.section-note{font-size:12px;color:var(--muted,#647380);margin:-4px 0 12px;line-height:1.6}
+.resume-ai-status{margin:8px 0 0;padding:9px 12px;border-radius:9px;font-size:12px;line-height:1.55;background:#edf2f6;color:var(--ink,#12212e)}
+.resume-ai-status[data-tone="busy"]{background:#eef3fb;color:#1d3f6e}
+.resume-ai-status[data-tone="busy"]::before{content:"";display:inline-block;width:10px;height:10px;margin-right:8px;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;vertical-align:-1px;animation:resume-ai-spin .8s linear infinite}
+.resume-ai-status[data-tone="ok"]{background:#e5eff7;color:#103e63}
+.resume-ai-status[data-tone="warn"]{background:#fdf3e4;color:#7a4b0c}
+@keyframes resume-ai-spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.resume-ai-status[data-tone="busy"]::before{animation:none}}
+
+.search-view-all{font-weight:600;color:var(--brand,#174265);justify-content:center}
+.candidate-experience{display:block;font-size:13px;font-weight:600;color:var(--ink,#12212e);margin-bottom:12px}
+.tech-picker-control .selected-tech-chip input.tech-years{flex:0 0 52px;width:52px;min-width:0;height:26px;min-height:0;padding:2px 6px;margin:0;border:1px solid #cdd6de;border-radius:6px;background:#fff;box-shadow:none;font-size:12px;text-align:center}
+.tech-picker-control .selected-tech-chip input.tech-years{border:1px solid #c0ccd6!important;background:#fff!important;padding:2px 4px!important;min-height:26px!important;flex-basis:52px}

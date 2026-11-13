@@ -55,7 +55,15 @@ DB_USERNAME=<database user>
 DB_PASSWORD=<database password>
 SESSION_IDLE_MINUTES=30
 SESSION_SAVE_PATH=storage/sessions
+FIREBASE_API_KEY=<Firebase web API key>
+FIREBASE_AUTH_DOMAIN=blujay-interviews.firebaseapp.com
+FIREBASE_PROJECT_ID=blujay-interviews
+GEMINI_API_KEY=<Google AI Studio API key>
+GEMINI_MODEL=gemini-3.6-flash
+GEMINI_FALLBACK_MODEL=gemini-flash-lite-latest
 ```
+
+The Firebase values enable candidate "Forgot password?" by SMS code; see `docs/PASSWORD-RESET.md` (billing, SMS region and authorised domain requirements). The Gemini values enable resume auto-fill at registration; it needs the PHP `curl` and `zip` extensions and outbound HTTPS to `generativelanguage.googleapis.com`. Use a paid Gemini tier in production: free-tier inputs (candidate resumes) may be used by Google to improve its products.
 
 Generate a fresh key with `php bin/console.php key:generate`. Do not reuse a test key or publish it.
 
@@ -73,7 +81,7 @@ If needed, set `BLUJAY_ADMIN_PASSWORD` only for the process and run `php bin/con
 
 ## K. Verify permissions
 
-PHP must write `storage/logs`, `storage/sessions`, `storage/uploads`, and `storage/resumes`. Start with `0750`; use `0770` only when the Hostinger PHP group requires it. Never use `0777`. Application code, `.env`, and migrations should not be writable by the web process.
+PHP must write `storage/logs`, `storage/sessions`, `storage/uploads`, `storage/resumes`, and `storage/cache`. Start with `0750`; use `0770` only when the Hostinger PHP group requires it. Never use `0777`. Application code, `.env`, and migrations should not be writable by the web process.
 
 Errors go to `storage/logs/php.log`. The application records an opaque reference, exception class, and source location. It does not intentionally log passwords, password hashes, cookies, CSRF tokens, SQL arguments, or form data. Monthly, archive and compress old logs outside the web root, preserve a writable current file, delete archives under company retention policy, and recheck permissions.
 

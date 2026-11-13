@@ -15,24 +15,25 @@ final class BookingService
         private readonly AuditService $audit,
     ) {}
 
-    public function create(int $candidateId, array $input): int
+    /** $actorId: the consultancy user booking for one of its students (null = the candidate themself). */
+    public function create(int $candidateId, array $input, ?int $actorId = null): int
     {
         $details = $this->validateDetails($input);
-        return $this->transaction(function () use ($candidateId, $input, $details): int {
+        return $this->transaction(function () use ($candidateId, $input, $details, $actorId): int {
             $this->lockScheduling();
             $candidate = $this->candidateSnapshot($candidateId);
             $this->activeTechnology($details['technology_id'], true);
             $slot = $this->availability->evaluate($candidateId, $input, null, true);
             $query = $this->db->prepare("INSERT INTO interviews
-                (candidate_id, candidate_reference_id, candidate_name_snapshot, candidate_classification_snapshot, resource_id, support_person_id, technology_id, company_name, job_role, interview_round, hr_name, hr_phone, hr_unavailable, duration_minutes, interview_type, start_time, end_time, status)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'BOOKED')");
+                (candidate_id, candidate_reference_id, candidate_name_snapshot, candidate_classification_snapshot, consultancy_id, booked_by_user_id, resource_id, support_person_id, technology_id, company_name, job_role, interview_round, hr_name, hr_phone, hr_unavailable, duration_minutes, interview_type, start_time, end_time, status)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'BOOKED')");
             $query->execute([
-                $candidateId, $candidateId, $candidate['full_name'], $candidate['classification'], $slot['resource_id'], $slot['support_person_id'], $details['technology_id'],
+                $candidateId, $candidateId, $candidate['full_name'], $candidate['classification'], $candidate['consultancy_id'], $actorId ?? $candidateId, $slot['resource_id'], $slot['support_person_id'], $details['technology_id'],
                 $details['company_name'], $details['job_role'], $details['interview_round'], $details['hr_name'], $details['hr_phone'], $details['hr_unavailable'],
                 $slot['duration'], $slot['interview_type'], $slot['start_utc']->format('Y-m-d H:i:s'), $slot['end_utc']->format('Y-m-d H:i:s'),
             ]);
             $id = (int) $this->db->lastInsertId();
-            $this->audit->record($candidateId, 'booking.created', 'interview', $id, $this->auditSlot($slot));
+            $this->audit->record($actorId ?? $candidateId, $actorId ? 'consultancy.booking.created' : 'booking.created', 'interview', $id, $this->auditSlot($slot) + ($actorId ? ['candidate_id' => $candidateId] : []));
             return $id;
         });
     }
@@ -46,9 +47,9 @@ final class BookingService
             $this->activeTechnology($details['technology_id'], true);
             $slot = $this->availability->evaluate($candidateId, $input, null, true, false);
             $query = $this->db->prepare("INSERT INTO interviews
-                (candidate_id, candidate_reference_id, candidate_name_snapshot, candidate_classification_snapshot, resource_id, support_person_id, technology_id, company_name, job_role, interview_round, hr_name, hr_phone, hr_unavailable, duration_minutes, interview_type, start_time, end_time, status)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'BOOKED')");
-            $query->execute([$candidateId, $candidateId, $candidate['full_name'], $candidate['classification'], $slot['resource_id'], $slot['support_person_id'], $details['technology_id'], $details['company_name'], $details['job_role'], $details['interview_round'], $details['hr_name'], $details['hr_phone'], $details['hr_unavailable'], $slot['duration'], $slot['interview_type'], $slot['start_utc']->format('Y-m-d H:i:s'), $slot['end_utc']->format('Y-m-d H:i:s')]);
+                (candidate_id, candidate_reference_id, candidate_name_snapshot, candidate_classification_snapshot, consultancy_id, booked_by_user_id, resource_id, support_person_id, technology_id, company_name, job_role, interview_round, hr_name, hr_phone, hr_unavailable, duration_minutes, interview_type, start_time, end_time, status)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'BOOKED')");
+            $query->execute([$candidateId, $candidateId, $candidate['full_name'], $candidate['classification'], $candidate['consultancy_id'], $actorId, $slot['resource_id'], $slot['support_person_id'], $details['technology_id'], $details['company_name'], $details['job_role'], $details['interview_round'], $details['hr_name'], $details['hr_phone'], $details['hr_unavailable'], $slot['duration'], $slot['interview_type'], $slot['start_utc']->format('Y-m-d H:i:s'), $slot['end_utc']->format('Y-m-d H:i:s')]);
             $id = (int) $this->db->lastInsertId();
             $metadata = $this->auditSlot($slot) + ['candidate_id' => $candidateId, 'time_cutoff_bypassed' => !$this->hours->meetsCandidateAdvance($slot['start_utc']->format('Y-m-d H:i:s'))];
             $this->audit->record($actorId, 'admin.booking.created', 'interview', $id, $metadata);
@@ -57,9 +58,9 @@ final class BookingService
         });
     }
 
-    public function cancel(int $candidateId, int $interviewId): void
+    public function cancel(int $candidateId, int $interviewId, ?int $actorId = null): void
     {
-        $this->transaction(function () use ($candidateId, $interviewId): void {
+        $this->transaction(function () use ($candidateId, $interviewId, $actorId): void {
             $this->lockScheduling();
             $interview = $this->ownedBooking($candidateId, $interviewId);
             if ($interview['status'] !== 'BOOKED') { throw new ValidationException(['form' => 'This interview is already cancelled.']); }
@@ -69,13 +70,13 @@ final class BookingService
             $query = $this->db->prepare("UPDATE interviews SET status = 'CANCELLED' WHERE id = ? AND candidate_id = ? AND status = 'BOOKED'");
             $query->execute([$interviewId, $candidateId]);
             if ($query->rowCount() !== 1) { throw new ValidationException(['form' => 'This interview could not be cancelled. Refresh and try again.']); }
-            $this->audit->record($candidateId, 'booking.cancelled', 'interview', $interviewId, ['start_time_utc' => $interview['start_time'], 'resource_id' => (int) $interview['resource_id']]);
+            $this->audit->record($actorId ?? $candidateId, $actorId ? 'consultancy.booking.cancelled' : 'booking.cancelled', 'interview', $interviewId, ['start_time_utc' => $interview['start_time'], 'resource_id' => (int) $interview['resource_id']]);
         });
     }
 
-    public function reschedule(int $candidateId, int $interviewId, array $input): void
+    public function reschedule(int $candidateId, int $interviewId, array $input, ?int $actorId = null): void
     {
-        $this->transaction(function () use ($candidateId, $interviewId, $input): void {
+        $this->transaction(function () use ($candidateId, $interviewId, $input, $actorId): void {
             $this->lockScheduling();
             $interview = $this->ownedBooking($candidateId, $interviewId);
             if ($interview['status'] !== 'BOOKED') { throw new ValidationException(['form' => 'Cancelled interviews cannot be rescheduled.']); }
@@ -86,10 +87,10 @@ final class BookingService
             $request = array_merge($input, ['interview_type' => $interview['interview_type']]);
             $slot = $this->availability->evaluate($candidateId, $request, $interviewId, true);
             $before = ['start_time_utc' => $interview['start_time'], 'end_time_utc' => $interview['end_time'], 'duration_minutes' => (int) $interview['duration_minutes'], 'resource_id' => (int) $interview['resource_id'], 'support_person_id' => $interview['support_person_id'] ? (int) $interview['support_person_id'] : null];
-            $query = $this->db->prepare('UPDATE interviews SET resource_id = ?, support_person_id = ?, duration_minutes = ?, start_time = ?, end_time = ? WHERE id = ? AND candidate_id = ? AND status = \'BOOKED\'');
+            $query = $this->db->prepare('UPDATE interviews SET resource_id = ?, support_person_id = ?, duration_minutes = ?, start_time = ?, end_time = ?' . $this->locationReset($interview['start_time'], $slot['start_utc']) . ' WHERE id = ? AND candidate_id = ? AND status = \'BOOKED\'');
             $query->execute([$slot['resource_id'], $slot['support_person_id'], $slot['duration'], $slot['start_utc']->format('Y-m-d H:i:s'), $slot['end_utc']->format('Y-m-d H:i:s'), $interviewId, $candidateId]);
             if ($query->rowCount() !== 1) { throw new ValidationException(['form' => 'The interview schedule did not change. Choose a different slot.']); }
-            $this->audit->record($candidateId, 'booking.rescheduled', 'interview', $interviewId, ['before' => $before, 'after' => $this->auditSlot($slot)]);
+            $this->audit->record($actorId ?? $candidateId, $actorId ? 'consultancy.booking.rescheduled' : 'booking.rescheduled', 'interview', $interviewId, ['before' => $before, 'after' => $this->auditSlot($slot)]);
         });
     }
 
@@ -119,12 +120,20 @@ final class BookingService
             $this->activeTechnology($details['technology_id'], true);
             $slot = $this->availability->evaluate((int) $interview['candidate_id'], $input, $interviewId, true, false);
             $before = ['start_time_utc' => $interview['start_time'], 'end_time_utc' => $interview['end_time'], 'duration_minutes' => (int) $interview['duration_minutes'], 'interview_type' => $interview['interview_type'], 'resource_id' => (int) $interview['resource_id'], 'support_person_id' => $interview['support_person_id'] ? (int) $interview['support_person_id'] : null];
-            $query = $this->db->prepare("UPDATE interviews SET resource_id=?, support_person_id=?, technology_id=?, company_name=?, job_role=?, interview_round=?, hr_name=?, hr_phone=?, hr_unavailable=?, duration_minutes=?, interview_type=?, start_time=?, end_time=? WHERE id=? AND status='BOOKED'");
+            $query = $this->db->prepare("UPDATE interviews SET resource_id=?, support_person_id=?, technology_id=?, company_name=?, job_role=?, interview_round=?, hr_name=?, hr_phone=?, hr_unavailable=?, duration_minutes=?, interview_type=?, start_time=?, end_time=?" . $this->locationReset($interview['start_time'], $slot['start_utc']) . " WHERE id=? AND status='BOOKED'");
             $query->execute([$slot['resource_id'], $slot['support_person_id'], $details['technology_id'], $details['company_name'], $details['job_role'], $details['interview_round'], $details['hr_name'], $details['hr_phone'], $details['hr_unavailable'], $slot['duration'], $slot['interview_type'], $slot['start_utc']->format('Y-m-d H:i:s'), $slot['end_utc']->format('Y-m-d H:i:s'), $interviewId]);
             $override = !$this->hours->canCandidateChange($interview['start_time']);
             $this->audit->record($actorId, 'admin.booking.rescheduled', 'interview', $interviewId, ['before' => $before, 'after' => $this->auditSlot($slot), 'time_cutoff_bypassed' => $override]);
             if ($override) { $this->audit->record($actorId, 'admin.cutoff_override', 'interview', $interviewId, ['operation' => 'reschedule']); }
         });
+    }
+
+    /** A move to another local day clears the office assignment so admins plan it again. */
+    private function locationReset(string $oldStartUtc, \DateTimeImmutable $newStartUtc): string
+    {
+        $timezone = $this->hours->timezone();
+        $oldDay = (new \DateTimeImmutable($oldStartUtc, new \DateTimeZone('UTC')))->setTimezone($timezone)->format('Y-m-d');
+        return $oldDay === $newStartUtc->setTimezone($timezone)->format('Y-m-d') ? '' : ', location_id = NULL, location_assigned_by = NULL, location_assigned_at = NULL';
     }
 
     private function validateDetails(array $input): array
@@ -160,7 +169,7 @@ final class BookingService
 
     private function candidateSnapshot(int $candidateId): array
     {
-        $query=$this->db->prepare("SELECT u.full_name,p.classification FROM users u JOIN candidate_profiles p ON p.user_id=u.id WHERE u.id=? AND u.role='CANDIDATE' AND u.active=1 FOR UPDATE");
+        $query=$this->db->prepare("SELECT u.full_name,p.classification,p.consultancy_id FROM users u JOIN candidate_profiles p ON p.user_id=u.id WHERE u.id=? AND u.role='CANDIDATE' AND u.active=1 FOR UPDATE");
         $query->execute([$candidateId]);$candidate=$query->fetch();
         if(!$candidate){throw new ValidationException(['form'=>'This candidate account is not available for booking.']);}
         return $candidate;

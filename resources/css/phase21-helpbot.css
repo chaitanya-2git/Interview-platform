@@ -1,0 +1,73 @@
+/* Phase 21: BluJay Help assistant (floating launcher + chat panel on every page). */
+.helpbot{position:fixed;right:20px;bottom:20px;z-index:150;font-family:var(--font-sans)}
+.helpbot-launcher{display:flex;align-items:center;gap:8px;height:52px;padding:0 20px 0 16px;border:0;border-radius:999px;background:var(--brand);color:#fff;font:inherit;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 10px 28px rgba(11,74,126,.35),0 0 0 4px rgba(255,255,255,.9);transition:transform .15s,background-color .15s}
+.helpbot-launcher:hover{background:var(--brand-600);transform:translateY(-1px)}
+.helpbot-launcher .icon{width:22px;height:22px}
+.helpbot.is-open .helpbot-launcher{display:none}
+.helpbot-nudge{position:absolute;right:0;bottom:64px;display:flex;align-items:center;gap:4px;width:max-content;max-width:260px;padding:10px 8px 10px 14px;border:1px solid var(--border);border-radius:14px 14px 4px 14px;background:#fff;box-shadow:var(--shadow-lg);animation:helpbot-pop .25s ease-out}
+.helpbot-nudge>button:first-child{border:0;background:none;padding:0;color:var(--ink);font:inherit;font-size:13px;text-align:left;line-height:1.35;cursor:pointer}
+.helpbot-nudge strong{display:block;color:var(--brand)}
+.helpbot-nudge-close{display:grid;place-items:center;width:26px;height:26px;border:0;border-radius:8px;background:none;color:var(--muted);cursor:pointer}
+.helpbot-nudge-close .icon{width:14px;height:14px}
+.helpbot-panel{display:flex;flex-direction:column;width:380px;height:min(620px,calc(100dvh - 40px));overflow:hidden;border:1px solid var(--border);border-radius:20px;background:#fff;box-shadow:0 24px 60px rgba(15,34,56,.25);animation:helpbot-pop .2s ease-out}
+.helpbot-panel[hidden]{display:none}
+.helpbot-header{display:flex;align-items:center;gap:10px;padding:14px 12px 14px 16px;background:linear-gradient(155deg,#0b4a7e 0%,#073256 100%);color:#fff}
+.helpbot-avatar{display:grid;place-items:center;flex:none;width:38px;height:38px;border-radius:12px;background:#fff}
+.helpbot-avatar img{width:28px;height:28px}
+.helpbot-title{display:flex;flex-direction:column;flex:1;min-width:0}
+.helpbot-title strong{font-size:15px;color:#fff}
+.helpbot-title small{display:flex;align-items:center;gap:6px;font-size:12px;color:rgba(255,255,255,.75)}
+.helpbot-online{width:7px;height:7px;border-radius:50%;background:var(--logo-green)}
+.helpbot-icon{display:grid;place-items:center;width:34px;height:34px;border:0;border-radius:10px;background:rgba(255,255,255,.1);color:#fff;cursor:pointer}
+.helpbot-icon:hover{background:rgba(255,255,255,.2)}
+.helpbot-icon .icon{width:17px;height:17px}
+.helpbot-messages{flex:1;overflow-y:auto;overscroll-behavior:contain;display:flex;flex-direction:column;gap:10px;padding:16px;background:var(--canvas)}
+.helpbot-msg{display:flex;flex-direction:column;gap:8px;max-width:88%}
+.helpbot-msg.from-bot{align-self:flex-start}
+.helpbot-msg.from-user{align-self:flex-end;align-items:flex-end}
+.helpbot-text{padding:10px 13px;border-radius:16px;font-size:14px;line-height:1.5;overflow-wrap:anywhere}
+.from-bot .helpbot-text{border:1px solid var(--border);border-bottom-left-radius:4px;background:#fff;color:var(--ink)}
+.from-user .helpbot-text{border-bottom-right-radius:4px;background:var(--brand);color:#fff}
+.helpbot-links{display:flex;flex-wrap:wrap;gap:6px}
+.helpbot-links a{padding:7px 12px;border:1px solid var(--brand-200);border-radius:999px;background:#fff;color:var(--brand);font-size:13px;font-weight:650;text-decoration:none}
+.helpbot-links a:hover{background:var(--brand-50);border-color:var(--brand)}
+.helpbot-typing .helpbot-text{display:flex;gap:4px;padding:13px 14px}
+.helpbot-typing span{width:7px;height:7px;border-radius:50%;background:#94a3b8;animation:helpbot-dot 1s infinite ease-in-out}
+.helpbot-typing span:nth-child(2){animation-delay:.15s}
+.helpbot-typing span:nth-child(3){animation-delay:.3s}
+.helpbot-suggest{padding:10px 0 4px;border-top:1px solid var(--border);background:#fff}
+.helpbot-suggest p{margin:0 16px 6px;color:var(--muted);font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.helpbot-chips{display:flex;gap:6px;overflow-x:auto;padding:0 16px 6px;scrollbar-width:thin}
+.helpbot-chip{flex:none;max-width:240px;padding:8px 12px;border:1px solid var(--brand-100);border-radius:999px;background:var(--brand-50);color:var(--brand);font:inherit;font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer}
+.helpbot-chip:hover{border-color:var(--brand);background:#fff}
+.helpbot-form{display:flex;gap:8px;padding:10px 12px 6px;background:#fff}
+.helpbot-form input{flex:1;min-width:0;height:44px;padding:0 14px;border:1px solid #d6dee8;border-radius:12px;background:#fff;color:var(--ink);font:inherit;font-size:14px}
+.helpbot-form input:focus{border-color:var(--accent);box-shadow:0 0 0 4px rgba(14,122,163,.14);outline:none}
+.helpbot-form button{display:grid;place-items:center;flex:none;width:44px;height:44px;border:0;border-radius:12px;background:var(--brand);color:#fff;cursor:pointer}
+.helpbot-form button .icon{width:19px;height:19px}
+.helpbot-form.is-busy button{opacity:.5;cursor:wait}
+.helpbot-note{display:flex;align-items:center;gap:6px;margin:0;padding:2px 14px 10px;background:#fff;color:var(--muted);font-size:11.5px}
+.helpbot-note .icon{width:13px;height:13px}
+@keyframes helpbot-pop{from{opacity:0;transform:translateY(8px) scale(.98)}to{opacity:1;transform:none}}
+@keyframes helpbot-dot{0%,80%,100%{opacity:.3;transform:translateY(0)}40%{opacity:1;transform:translateY(-3px)}}
+
+/* Phones: the launcher sits above the bottom tab bar; the panel becomes a full-height sheet. */
+@media (max-width:760px){
+  .helpbot{right:14px;bottom:16px}
+  .shell-v2 .helpbot{bottom:90px}
+  .helpbot-launcher{width:52px;padding:0;justify-content:center}
+  .helpbot-launcher span{display:none}
+  .helpbot.is-open{inset:0;right:0;bottom:0}
+  .helpbot-panel{width:100%;height:100dvh;border:0;border-radius:0}
+  .helpbot-header{padding-top:max(14px,env(safe-area-inset-top))}
+  .helpbot-note{padding-bottom:max(10px,env(safe-area-inset-bottom))}
+  .helpbot-form input{font-size:16px}
+  .candidate-body.booking-active .helpbot:not(.is-open),.candidate-body:has(.booking-shell.enhanced) .helpbot:not(.is-open){bottom:96px}
+  body:has(.helpbot.is-open){overflow:hidden}
+}
+@media (prefers-reduced-motion:reduce){.helpbot-panel,.helpbot-nudge{animation:none}.helpbot-typing span{animation:none}}
+.helpbot-chips{flex-wrap:wrap;max-height:124px;overflow-x:hidden;overflow-y:auto}
+.helpbot-chip{max-width:100%}
+.helpbot-messages{position:relative}
+.helpbot.has-chat .helpbot-chips{flex-wrap:nowrap;max-height:none;overflow-x:auto;overflow-y:hidden}
+.helpbot-slow{color:var(--muted);font-size:12px;padding-left:4px}

@@ -11,12 +11,12 @@ final class HomeController
     public function index(): void
     {
         $user = (new AuthService())->user();
-        View::redirect($user ? ($user['role'] === 'ADMIN' ? 'admin' : 'candidate') : 'login');
+        View::redirect($user ? ['ADMIN' => 'admin', 'CONSULTANCY' => 'consultancy'][$user['role']] ?? 'candidate' : 'login');
     }
     public function admin(): void
     {
         $scheduling=new Scheduling();$hours=$scheduling->hours();$now=$hours->nowUtc()->setTimezone($hours->timezone());$data=(new AdminRepository(Database::connection()))->dashboard($now);$data['rows']=$scheduling->presenter()->many($data['rows']);$data['current']=$data['current']?$scheduling->presenter()->one($data['current']):null;$data['next']=$data['next']?$scheduling->presenter()->one($data['next']):null;
-        View::render('admin/home', $data+['title'=>'Operations dashboard','user'=>(new AuthService())->user(),'now'=>$now]);
+        View::render('admin/home', $data+['title'=>'Operations dashboard','user'=>(new AuthService())->user(),'now'=>$now,'locationPending'=>(new \App\Services\InterviewLocationService())->pendingCount()]);
     }
     public function candidate(): void
     {
@@ -34,7 +34,7 @@ final class HomeController
     }
     public function updateTechStack():void
     {
-        $user=(new AuthService())->user();try{(new CandidateTechStackService(Database::connection()))->updateOwn((int)$user['id'],$_POST['technology_ids']??[]);Session::flash('Your tech stack was updated.');View::redirect('profile');}catch(ValidationException $e){http_response_code(422);$this->profilePage($user,$e->errors,is_array($_POST['technology_ids']??null)?$_POST['technology_ids']:[]);}
+        $user=(new AuthService())->user();try{(new CandidateTechStackService(Database::connection()))->updateOwn((int)$user['id'],$_POST['technology_ids']??[],$_POST['technology_years']??null,$_POST['experience_years']??null);Session::flash('Your tech stack was updated.');View::redirect('profile');}catch(ValidationException $e){http_response_code(422);$this->profilePage($user,$e->errors,is_array($_POST['technology_ids']??null)?$_POST['technology_ids']:[]);}
     }
     public function updateResume():void
     {
@@ -44,7 +44,7 @@ final class HomeController
     }
     private function profilePage(array $user,array $errors=[],?array $selected=null):void
     {
-        $repo=new UserRepository();$profile=$repo->profile((int)$user['id']);$technologies=$repo->technologies();$known=array_fill_keys(array_map('intval',array_column($technologies,'id')),true);foreach($profile['tech_stack'] as $item)if(!isset($known[$item['id']]))$technologies[]=$item;usort($technologies,static fn($a,$b)=>strnatcasecmp($a['name'],$b['name']));View::render('candidate/profile',['title'=>'Your profile','user'=>$user,'profile'=>$profile,'errors'=>$errors,'technologies'=>$technologies,'selectedTechnologyIds'=>$selected??array_column($profile['tech_stack'],'id')]);
+        $repo=new UserRepository();$profile=$repo->profile((int)$user['id']);$technologies=$repo->technologies();$known=array_fill_keys(array_map('intval',array_column($technologies,'id')),true);foreach($profile['tech_stack'] as $item)if(!isset($known[$item['id']]))$technologies[]=$item;usort($technologies,static fn($a,$b)=>strnatcasecmp($a['name'],$b['name']));View::render('candidate/profile',['title'=>'Your profile','user'=>$user,'profile'=>$profile,'errors'=>$errors,'technologies'=>$technologies,'selectedTechnologyIds'=>$selected??array_column($profile['tech_stack'],'id'),'selectedYears'=>$selected!==null&&is_array($_POST['technology_years']??null)?$_POST['technology_years']:array_column($profile['tech_stack'],'years','id'),'experienceYears'=>$selected!==null?(is_scalar($_POST['experience_years']??null)?(string)$_POST['experience_years']:''):($profile['experience_years']!==null?rtrim(rtrim((string)$profile['experience_years'],'0'),'.'):'')]);
     }
     public function photo(): void
     {
